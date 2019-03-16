@@ -49,7 +49,7 @@
             </li>
             <li><a href="contactUs.php">Contact</a></li>
             <?php if (Session::userIsLoggedIn()) : ?>
-              <li><a href="<?= URL ?>/product">Products</a></li>
+              <li><a href="<?= URL ?>/Ecommerce">Ecommerce</a></li>
               <li>
                   <a href="<?php echo URL; ?>/user/profile">Welcome <strong><?= Session::get('username') ?></strong></a>
                     <!--  | <a href="<?php echo URL; ?>user/preferences">Settings</a> -->
