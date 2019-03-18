@@ -1,7 +1,7 @@
 <div>
     <div class="tab">
         <a class="tablinks" href="<?= URL ?>/user/profile">Dashboard</button>
-        <a class="tablinks active" href="<?= URL ?>/product">Products</button>
+        <a class="tablinks active" href="<?= URL ?>/inventory">Inventory</button>
         <!-- <button class="tablinks" onclick="openCity(event, 'Subscription')">Add Subscription</button> -->
     </div>
 
@@ -11,7 +11,11 @@
     <div id="Products" class="tabcontent" style="display: block;">
         <div class="profile-text">
             <h3>Products</h3>
-            <span><a href="<?= URL ?>/product/create" class="opt">Add Product</a></span>
+            <span><a href="<?= URL ?>/inventory/create" class="opt">Add Product</a></span>
+            <form method="POST" action="<?php echo URL . '/inventory'; ?>" accept-charset="UTF-8" style="display: inline-block;">
+                <input name="q" placeholder="Search" value="<?= !empty($this->q) ? $this->q : '' ?>" type="text">
+                <input value="Search" type="submit" name="submit_search_inventory">
+            </form>
         </div>
 
         <table>
@@ -22,21 +26,27 @@
                 <th>Category</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Status</th>
                 <th>Edit</th>
             </tr>
             <?php foreach ($this->products as $product) : ?>
                 <tr>
-                    <td><img src="<?= $product->prod_image_path ?>" alt=""></td>
+                    <td><img class="prod-img" src="<?= URL . '/img/' . $product->prod_image_path ?>" alt=""></td>
                     <td><?php echo htmlspecialchars($product->id, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($product->brand, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($product->category, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($product->description, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td>$<?php echo htmlspecialchars($product->cost, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo $product->is_public ? 'Active' : 'In-active'; ?></td>
                     <td class="edit">
-                        <!-- <?php $url = URL . '/product/edit/' . $product->id; ?>
+                        <?php $url = URL . '/inventory/edit/' . $product->id; ?>
                         <a href="<?= $url ?>" class="opt">Edit
                             <i class="ion-edit btn-small"></i>
-                        </a> -->
+                        </a>
+                        <form method="POST" action="<?php echo URL . '/inventory/delete/' . htmlspecialchars($product->id, ENT_QUOTES, 'UTF-8'); ?>" accept-charset="UTF-8" style="display: inline-block;" onsubmit="return confirm('Are you sure?');">
+                            <input name="_method" value="DELETE" type="hidden">
+                            <input value="Delete" type="submit" name="submit_delete_product">
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>

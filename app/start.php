@@ -1,7 +1,7 @@
 <?php
 
 // Root path for inclusion.
-define('INC_ROOT', dirname(__DIR__));
+define('INC_ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 
 require_once('database.php'); 
 
@@ -23,16 +23,9 @@ define('URL',
     str_replace(
         $_SERVER['DOCUMENT_ROOT'],
         '',
-        str_replace('\\', '/', INC_ROOT).'/public'
+        str_replace('\\', '/', INC_ROOT).'public'
     )
 );
 
 // Root path for assets
-define('ASSET_ROOT',
-    'http://'.$_SERVER['HTTP_HOST'].
-    str_replace(
-        $_SERVER['DOCUMENT_ROOT'],
-        '',
-        str_replace('\\', '/', INC_ROOT).'/public'
-    )
-);
+define('ASSET_ROOT', INC_ROOT . 'public');

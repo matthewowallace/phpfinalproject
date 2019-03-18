@@ -1,7 +1,7 @@
 
     <div class="tab">
         <a class="tablinks active" href="<?= URL ?>/user/profile">Dashboard</button></a>
-        <a class="tablinks" href="<?= URL ?>/product">Products</button></a>
+        <a class="tablinks" href="<?= URL ?>/inventory">Inventory</button></a>
         <!-- <button class="tablinks" onclick="openCity(event, 'Subscription')">Add Subscription</button> -->
     </div>
 
@@ -23,7 +23,7 @@
                            
                             <h4>Username: <?= $this->user->username ?></h4>
                             <h4>User Type: <?= $this->user->is_contributer ? 'Contribuer' : 'Subscriber' ?></h4>
-                            <h4><?php $timestamp = time();  echo "\n"; echo(date("F d, Y h:i:s A", $timestamp)); ?></h4>
+                            <h4>Current server time: <?php $timestamp = time();  echo "\n"; echo(date("F d, Y h:i:s A", $timestamp)); ?></h4>
                         </div>
                                <a><button id="myBtn" type="button" class="btn btn-black">Edit Profolio</button></a>
                     </div>

@@ -36,7 +36,7 @@
       <div class="nav-container">
         <div class="brand">
           <div class="logo-img"><img src="<?php echo URL; ?>/img/logo.png"></div>
-          <a href="index.php">Health Jam</a>
+          <a href="<?php echo URL; ?>/index">Health Jam</a>
         </div>
         <nav>
           <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
@@ -48,8 +48,8 @@
               <a href="#!">Fitness Partners</a>
             </li>
             <li><a href="contactUs.php">Contact</a></li>
+            <li><a href="<?= URL ?>/shop">Shop</a></li>
             <?php if (Session::userIsLoggedIn()) : ?>
-              <li><a href="<?= URL ?>/Ecommerce">Ecommerce</a></li>
               <li>
                   <a href="<?php echo URL; ?>/user/profile">Welcome <strong><?= Session::get('username') ?></strong></a>
                     <!--  | <a href="<?php echo URL; ?>user/preferences">Settings</a> -->

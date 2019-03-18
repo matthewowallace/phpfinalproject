@@ -1,7 +1,5 @@
 <?php
 
-// use Illuminate\Database\Eloquent\Model as Eloquent;
-
 class Product
 {
     /**
@@ -17,27 +15,44 @@ class Product
     }
 
     /**
-     * getAllProducts
      * Gets all products from database
      */
     public function getAllProducts()
     {
         $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM  `products`
-        INNER JOIN users ON `products`.`user_id`=`users`.`id`
-        INNER JOIN category ON `products`.`category_id`=`category`.`id`
+        LEFT JOIN users ON `products`.`user_id`=`users`.`id`
+        LEFT JOIN category ON `products`.`category_id`=`category`.`id`
         ";
         
         $query = $this->db->prepare($sql);
 
-        // DEFAULT is the marker for "normal" accounts (that have a password etc.)
-        // There are other types of accounts that don't have passwords etc. (FACEBOOK)
         $query->execute();
 
         // return one row (we only have one result or nothing)
         return $query->fetchAll();
     }
 
-    public function addProduct($prod_image_path="", $description, $user_id, $category_id, $is_public, $cost)
+    /**
+     * Gets all products from database
+     */
+    public function getProducts($q)
+    {
+        $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM `products`
+        LEFT JOIN users ON `products`.`user_id`=`users`.`id`
+        LEFT JOIN category ON `products`.`category_id`=`category`.`id`
+        WHERE `products`.`description` LIKE :qa
+        ";
+        
+        $query = $this->db->prepare($sql);
+
+        $parameters = array(':qa' => '%' . trim($q) . '%');
+        $query->execute($parameters);
+        
+        // return one row (we only have one result or nothing)
+        return $query->fetchAll();
+    }
+
+    public function addProduct($description, $user_id, $category_id, $is_public, $cost, $prod_image_path="")
     {
         $sql = "INSERT INTO `products`(`prod_image_path`, `description`, `user_id`, `category_id`, `is_public`, `cost`) VALUES (:prod_image_path, :description, :user_id, :category_id, :is_public, :cost)";
 
@@ -46,7 +61,7 @@ class Product
         // $current_date = date("Y-m-d H:i:s");
         $parameters = array(':prod_image_path' => $prod_image_path, ':description' => $description, ':user_id' => $user_id, ':category_id' => $category_id, ':is_public' => $is_public, ':cost' => $cost);
         
-        return $result = $query->execute($parameters);
+        return $query->execute($parameters);
     }
 
     /**
@@ -55,7 +70,7 @@ class Product
      */
     public function getProduct($id)
     {
-        $sql = "SELECT products.`id`, products.`first_name`, products.`last_name`, products.facility_id, products.`is_active`, products.`created_at`, products.`updated_at` FROM  `products` WHERE products.id=:id LIMIT 1";
+        $sql = "SELECT `id`, `brand`, `prod_image_path`, `description`, `user_id`, `category_id`, `is_public`, `cost`, `created_at`, `updated_at` FROM  `products` WHERE products.id=:id LIMIT 1";
         
         $parameters = array(':id' => $id);
 
@@ -68,15 +83,63 @@ class Product
         return $query->fetch();
     }
 
-    public function updateProduct($id, $firstname, $lastname, $facility_id, $active)
+    public function updateProduct($user_id, $id, $description, $category_id, $is_public, $cost, $prod_image_path="")
     {
-        $sql = "UPDATE `products` SET `first_name`= :first_name,`last_name`= :last_name,`facility_id`=:facility_id,`is_active`=:is_active WHERE id=:id";
+        $sql = "UPDATE `products` SET `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public WHERE user_id=:user_id AND id=:id";
+
+        // If image was uploaded use this query
+        if (!empty($prod_image_path)) {
+            $sql = "UPDATE `products` SET `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public, `prod_image_path`=:prod_image_path WHERE user_id=:user_id AND id=:id";
+        }
+        
         $query = $this->db->prepare($sql);
-        $parameters = array(':id' => $id, ':first_name' => $firstname, ':last_name' => $lastname, ':facility_id' => $facility_id, ':is_active' => $active);
+        $parameters = array(':id' => $id, ':user_id' => $user_id, ':description' => $description, ':category_id' => $category_id, ':cost' => $cost, ':is_public' => $is_public);
+
+        // If image was uploaded update path
+        if (!empty($prod_image_path)) { 
+            $parameters[':prod_image_path'] = $prod_image_path;
+        }
+        // useful for debugging: you can see the SQL behind above construction by using:
+        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+
+        return $query->execute($parameters);
+    }
+
+     /**
+     * Deletes a request
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function deleteProduct($id)
+    {
+        $sql = "DELETE FROM products WHERE id=:id";
+        $query = $this->db->prepare($sql);
+        $parameters = array(':id' => $id);
 
         // useful for debugging: you can see the SQL behind above construction by using:
         // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 
         $query->execute($parameters);
+    }
+
+    public function getAllCategories()
+    {
+        $sql = "SELECT `id`, `category_name`, `created_at`, `updated_at` FROM `category` ORDER BY category_name ASC";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        // return one row (we only have one result or nothing)
+        return $query->fetchAll();
+    }
+
+
+    public function getAllBrands()
+    {
+        $sql = "SELECT `id`, `brand_name`, `created_at`, `updated_at` FROM `brand` ORDER BY brand_name ASC";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll();
     }
 }

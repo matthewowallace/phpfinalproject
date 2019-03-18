@@ -1,4 +1,4 @@
-<div class="row bg">
+<div class="bg">
     <div class="container">
         <!-- echo out the system feedback (error and success messages) -->
         <?php View::renderFeedbackMessages(); ?>
@@ -7,15 +7,15 @@
             <h1>Products</h1>
         </div>
         <div class="row">
-            <form action="<?= URL ?>/inventory/store" method="post" class="form clearfix newform"  enctype="multipart/form-data">
+            <form action="<?php echo URL . '/inventory/update/' . htmlspecialchars($this->product->id, ENT_QUOTES, 'UTF-8'); ?>" method="post" class="form clearfix newform" enctype="multipart/form-data">
                 <span class="in_form">
                     <label for="description">Description</label>
-                    <input type="text" name="description" id="description" placeholder="Product Description" required>
+                    <input type="text" name="description" id="description" placeholder="Product Description" required value="<?= $this->product->description ?>">
                 </span>
 
                 <span class="in_form">
                     <label for="cost">Cost</label>
-                    <input type="text" name="cost" id="cost" placeholder="Cost" required>
+                    <input type="text" name="cost" id="cost" placeholder="Cost" required value="<?= $this->product->cost ?>">
                 </span>
 
                 <span class="in_form">
@@ -24,7 +24,7 @@
                         <option value="" selected>Choose Category</option>
                         <?php //foreach ($this->categories as $category) : ?>
                         <?php foreach ($this->categories as $category) : ?>
-                        <option value="<?= $category->id?>"><?php echo htmlspecialchars($category->category_name, ENT_QUOTES, 'UTF-8'); ?></option>
+                        <option value="<?= $category->id ?>" <?= $this->product->category_id == $category->id ? 'selected' : '' ?>><?php echo htmlspecialchars($category->category_name, ENT_QUOTES, 'UTF-8'); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </span>
@@ -33,16 +33,16 @@
                     <label for="">Product Status: </label>
                     <div class="radio-group">
                         <label for="status-active">Active</label>
-                        <input type="radio" id="status-active" name="is_public" value="1">
+                        <input type="radio" id="status-active" name="is_public" value="1" <?= $this->product->is_public == 1 ? 'checked' : '' ?>>
                         <label for="status-inactive">In-active</label>
-                        <input type="radio" name="is_public" id="status-inactive" value="0">
+                        <input type="radio" name="is_public" id="status-inactive" value="0" <?= $this->product->is_public == 1 ? '' : 'checked' ?>>
                     </div>
                 </span>
 
                 <input type="file" name="image" />
 
                 <span class="form__btn--group">
-                    <input type="submit" value="Add Product" class="btn btn-orange" name="submit_add_product">
+                    <input type="submit" value="Update Product" class="btn btn-orange" name="submit_update_product">
                 </span>
 
             </form>
