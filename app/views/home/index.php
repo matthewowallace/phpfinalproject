@@ -1,8 +1,11 @@
+
+
+
 <!-- Hero Area -->
 <section class="Hero_area">
   <div class="container">
     <div class="row-fluid">
-   <h1 class="animated pulse">CLICK TO GET FIT</h1>
+   <a href="#feature"><h1 class="animated pulse">CLICK TO GET FIT</h1></a>
     </div>
 <div class="container">    
 <div class="row">
@@ -131,16 +134,20 @@
       </div>
     </section>
 
-  <section class="about_us_cont-bot">
-      <div class="container">
-        <div class="row"> 
-          <div class="col-sm-12">
-            <iframe width="100%" height="650" src="https://www.youtube.com/embed/BlE-6DdxRY8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-         </div>     
-        </div> 
-      </div>
-    </section>
 
+<section>
+  <div class="container-fluid">
+    <div id="fitslider">
+  <div id="images">
+      <?php foreach ($this->products as $product) : ?>
+    <img  src="<?= URL . '/img/' . $product->prod_image_path?>" alt="">
+     <img  src="<?= URL . '/img/' . $product->prod_image_path?>" alt="">
+      <img src="<?= URL . '/img/' . $product->prod_image_path?>" alt="">
+    <?php endforeach; ?>
+  </div>
+</div>
+</div>
+</section>
     <div id="feature">
             <div class="cover">
                <div>
@@ -201,3 +208,4 @@
     <div class='scroll icon'><i class="fa fa-4x fa-angle-up"></i></div>
 </div>
 </main>
+
