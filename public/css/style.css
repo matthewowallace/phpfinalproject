@@ -591,7 +591,7 @@ nav ul li ul li a {
   padding-bottom: 40px;
 }
 .about_us_cont-top{
-  padding-bottom: 100px;
+  padding-bottom: 30px;
 }
 
 
@@ -1834,4 +1834,44 @@ width:35px;
   color: #ccc;
   padding-top: 10px;
   font-size: 15px;
+}
+
+
+
+#fitslider {
+  width: auto;
+  height: 600px;
+  overflow: hidden;
+  padding-left: 7%;
+}
+
+#images {
+  width : 4800px;
+  height: 500px;
+  margin: 0px 0 0;
+  overflow: hidden;
+  animation: slide 20s infinite ease-in-out;
+}
+
+#images img {
+  float: left;
+}
+
+@keyframes slide {
+    0% { margin-left: 0; }
+   28% { margin-left: 0; }
+   33% { margin-left: -1600px; }
+   61% { margin-left: -1600px; }
+   66% { margin-left: -3200px; }
+   95% { margin-left: -3200px; }
+  100% { margin-left: 0; }
+}
+
+/* Codepen Preview Mode */
+
+@media only screen and (height: 300px) {
+  #fitslider {
+    margin-top: -430px;
+    transform: scale(.5,.5);
+  }
 }
