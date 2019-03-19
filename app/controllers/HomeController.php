@@ -16,10 +16,13 @@ class HomeController extends Controller
         // die(var_dump(Session::get('username')));
         $User = $this->model('user');
         $user = $User->getUserByUsername(SESSION::get('username'));
+        $product = $this->model('product');
+        $products = $product->getAllProducts();
 
         $this->view->render('home/index', [
             'name' => $user,
-            'mood' => $mood
+            'mood' => $mood,
+            'products' => $products,
         ]);
     }
 }
