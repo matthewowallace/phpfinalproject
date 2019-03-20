@@ -30,7 +30,7 @@ class User
         $user = $this->getUserbyEmail($email);
 
         if (!$user) {
-            $sql = "INSERT INTO users (username, first_name, last_name, email, password) VALUES (:username, :first_name, :last_name, :email, :password)";
+            $sql = "INSERT INTO users (username, first_name, last_name, email, password, is_subscriber) VALUES (:username, :first_name, :last_name, :email, :password, 1)";
             $query = $this->db->prepare($sql);
             $parameters = array(':username' => $username, ':first_name' => $first_name, ':last_name' => $last_name, ':email' => $email, ':password' => $password);
     

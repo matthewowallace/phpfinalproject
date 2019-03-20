@@ -65,6 +65,7 @@ class UserController extends Controller
                 $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
                 $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
                 $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);            
+                // $is_subscriber = filter_var($_POST['is_subscriber'], FILTER_SANITIZE_STRING);
 
                 // Save user if error return false
                 $sucessful = $User->addUser($username, $first_name, $last_name, $email, $password_hash);
