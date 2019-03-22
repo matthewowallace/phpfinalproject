@@ -202,6 +202,11 @@
             </div>
         </div>
 
+      <?php
+      include('contact_form.php');
+      ?>
+
+
     <!--/#contact-->
     <div class='scrolltop'>
         <div><h4>Stay Connected</h4></div>
