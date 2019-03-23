@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 18, 2019 at 12:20 PM
+-- Generation Time: Mar 22, 2019 at 08:10 PM
 -- Server version: 10.1.37-MariaDB-0+deb9u1
 -- PHP Version: 7.0.33-0+deb9u3
 
@@ -46,6 +46,16 @@ CREATE TABLE `category` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `category_name`, `created_at`, `updated_at`) VALUES
+(1, 'Suppliment', '2019-03-05 03:38:03', '2019-03-18 02:28:47'),
+(2, 'Fitness Gear', '2019-03-05 03:38:03', '2019-03-18 02:29:00'),
+(3, 'Health Event', '2019-03-18 02:29:31', '2019-03-18 02:29:31'),
+(4, 'Gym Subscription', '2019-03-18 02:29:31', '2019-03-18 02:29:31');
+
 -- --------------------------------------------------------
 
 --
@@ -80,6 +90,27 @@ CREATE TABLE `credit_cards` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `health_ads`
+--
+
+CREATE TABLE `health_ads` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `ad_type` varchar(15) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `file_path` varchar(191) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `url` varchar(191) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `cost` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `is_active` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
 
@@ -132,6 +163,7 @@ CREATE TABLE `users` (
   `email` varchar(191) NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `is_contributer` tinyint(1) NOT NULL DEFAULT '0',
+  `subscription_plan` varchar(10) DEFAULT NULL,
   `is_subscriber` tinyint(1) NOT NULL DEFAULT '0',
   `subscription_start` datetime DEFAULT NULL,
   `subscription_end` datetime DEFAULT NULL,
@@ -183,6 +215,13 @@ ALTER TABLE `contact_us`
 ALTER TABLE `credit_cards`
   ADD PRIMARY KEY (`id`),
   ADD KEY `users_credit_cards` (`user_id`);
+
+--
+-- Indexes for table `health_ads`
+--
+ALTER TABLE `health_ads`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `orders`
@@ -243,6 +282,11 @@ ALTER TABLE `contact_us`
 ALTER TABLE `credit_cards`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `health_ads`
+--
+ALTER TABLE `health_ads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
@@ -265,6 +309,12 @@ ALTER TABLE `user_preference`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `health_ads`
+--
+ALTER TABLE `health_ads`
+  ADD CONSTRAINT `health_ads_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
