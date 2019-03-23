@@ -93,6 +93,15 @@ class User
         return $query->fetch();
     }
 
+    public function upgradeAccount($id, $agree)
+    {
+        $sql = "UPDATE `users` SET `is_contributer`=1 WHERE id=:id";
+        
+        // Executes query.
+        $query = $this->db->prepare($sql);
+        return $query->execute(array(':id' => $id));
+    }
+
     /**
      * Authenticates user.
      *

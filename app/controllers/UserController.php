@@ -145,6 +145,53 @@ class UserController extends Controller
     }
 
     /**
+     * Show agreement form to upgrade account.
+     * 
+     * @return
+     */
+    public function upgrade()
+    {
+        $this->view->render('auth/upgrade');
+    }
+
+    /**
+     * Update account to contributer.
+     * @return [type] [description]
+     */
+    public function agree() 
+    {
+        // if we have POST data to create a new user entry
+        if (isset($_POST['submit_upgrade_user'])) {
+            $User = $this->model('User');
+            $agree = filter_var($_POST['agree'], FILTER_SANITIZE_STRING);
+            
+            if ($agree) {
+                $successful = $User->upgradeAccount(Session::get('id'), $agree);
+                     
+                // check login status: if true, then redirect user to user/index, if false, then to login form again
+                if ($successful) {
+                    Session::add('feedback_positive', 'Account upgraded');
+                    // TODO: Change to view with dashboard after upgrade.
+                    Redirect::to('user/profile');
+                    exit();
+                } else {
+                    Redirect::to('user/upgrade'); // Redirect to upgrade.
+                    exit();
+                }
+            } else {
+                Redirect::to('user/upgrade'); // Redirect to upgrade.
+                exit();
+            }
+            
+            
+        }
+        
+        // Redirect to profile
+        Redirect::to('user/profile');
+        exit();
+    }
+
+    /**
      * The logout action
      * Perform logout, redirect user to main-page
      */

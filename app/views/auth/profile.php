@@ -22,7 +22,7 @@
                         <div class="profile-text">
                            
                             <h4>Username: <?= $this->user->username ?></h4>
-                            <h4>User Type: <?= $this->user->is_contributer ? 'Contribuer' : 'Subscriber' ?></h4>
+                            <h4>User Type: <?= $this->user->is_contributer ? 'Contributer' : 'Subscriber' ?></h4>
                             <h4>Current server time: <?php $timestamp = time();  echo "\n"; echo(date("F d, Y h:i:s A", $timestamp)); ?></h4>
                         </div>
                                <a><button id="myBtn" type="button" class="btn btn-black">Edit Profolio</button></a>
@@ -136,6 +136,7 @@
                         </p>
                         </div>
                         <a><button id="subBtn" type="button" class="btn btn-orange">Add/Manage</button></a>
+                        <a href="<?= URL ?>/user/upgrade" id="subBtn" type="button" class="btn btn-orange">Upgrade to Contributer</a>
                     </div>
                 </div>
             </div>
