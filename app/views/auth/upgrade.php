@@ -1,0 +1,24 @@
+<div class="">
+    <section class="account">
+        <div class="container">
+            <div class="Register">
+                <div class="reg-title">
+                    <!-- echo out the system feedback (error and success messages) -->
+                    <?php View::renderFeedbackMessages(); ?>
+                    <h2>SIGN UP</h2>
+                </div>
+                <form action="<?php echo URL; ?>/user/agree" method="post">
+                    <h2>Terms of agreement</h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur accusantium veritatis doloribus, illum vero ipsam consequatur quaerat, accusamus a, quia impedit incidunt dignissimos voluptatum facere eum iste fugiat nulla nostrum officiis sed sint repudiandae. Hic sapiente fugiat, neque perspiciatis! Quasi nesciunt deserunt repellendus illum blanditiis voluptatibus deleniti repudiandae totam voluptas rem nobis est nemo impedit ducimus, odit pariatur ullam, delectus necessitatibus voluptatum? Sapiente sequi voluptas exercitationem in, eligendi reprehenderit voluptates eum quo atque veritatis omnis non iste, maxime natus accusamus architecto ut minus. Repellat tempora consequuntur eius dolorum doloremque similique ratione nemo ipsum soluta voluptatem, ipsam molestiae optio facere, possimus voluptate, id, pariatur molestias. Numquam quidem, maxime reprehenderit odio iusto voluptas dolores, a necessitatibus fugit magnam corporis praesentium neque quibusdam nostrum pariatur harum repellat eos ab voluptatem sit aliquam vitae totam error. Eos delectus tempora repudiandae provident doloremque fugiat reiciendis voluptates cupiditate sit error neque saepe, blanditiis ipsam necessitatibus ab placeat iste minus, recusandae sed vitae hic, quos repellendus possimus deserunt quo. Sed perferendis animi voluptatum, ipsa maiores hic quaerat dignissimos commodi eius, facere, qui illum. Perferendis odio quae molestiae eveniet voluptas quaerat dolore! Sed aliquid, voluptatibus sapiente delectus quas facere. Iusto itaque dolor nihil, nesciunt ipsam cupiditate quod accusantium architecto doloribus sit. Sed tempora praesentium eveniet, quisquam asperiores, maxime esse molestias maiores fuga adipisci voluptate quaerat. Magnam explicabo laudantium aperiam pariatur ut, blanditiis enim mollitia illum animi, officiis cumque architecto nemo iure, at. Perspiciatis incidunt nam tempore accusantium eos, dolor, fuga quaerat placeat rem, in nesciunt dignissimos. Incidunt vel, porro voluptate nulla accusantium perferendis earum ipsa sunt, maxime necessitatibus temporibus quae blanditiis repellat aliquam culpa quis placeat consequuntur nam quia nesciunt? Dolores veritatis quidem voluptatem impedit eaque est non suscipit, fugit maiores ipsa quisquam. Qui asperiores laboriosam quos aliquam obcaecati provident, dignissimos dolore optio rem numquam. Inventore saepe sint magni quia, repellat exercitationem porro recusandae ipsam placeat eaque, tempore animi quo quod delectus voluptate eveniet quibusdam hic, ratione eius ipsum consectetur dolore molestias. Expedita sit quas quibusdam rerum eum. Deleniti id enim quod debitis, officiis consectetur assumenda maxime omnis deserunt sit commodi illo labore soluta quibusdam iusto asperiores tempora eaque, corrupti dolorum expedita voluptatum iure! Fuga ipsa perspiciatis nihil, cum deleniti. Pariatur, repudiandae labore. Minus voluptate accusamus amet cum itaque voluptas, voluptatem ea et placeat libero qui sit alias ut maiores. Minus ratione necessitatibus quo dolorem at maxime delectus perspiciatis autem, voluptatibus aliquid placeat, officiis quibusdam ea dicta voluptate dolores pariatur commodi blanditiis omnis possimus. Officia aperiam, sed deleniti itaque nobis, velit quod? Quos distinctio magni eligendi corporis necessitatibus quo eum cumque itaque, voluptatum, iure accusamus cupiditate, optio commodi. Veniam culpa recusandae magnam quos ab ullam dolores. Fugiat maiores similique fugit iure, nam veniam expedita aliquam illum deserunt eos aut asperiores commodi distinctio impedit unde ab totam quod quo ad et autem rem quia voluptatum ea! Sapiente quidem amet, placeat voluptate beatae voluptatem laboriosam magni, illo ipsa adipisci debitis earum. Harum nemo, architecto modi dicta necessitatibus obcaecati iusto similique hic illum perferendis commodi, error quasi voluptatibus corrupti deleniti vel?
+                    </p>
+                    <div class="input_field checkbox_option">
+                        <label for="cb1">I agree with terms and conditions <input type="checkbox" id="cb1" name="agree" value="1" required></label>
+                    <div class="submit">
+                        <button type="submit" name="submit_upgrade_user" value = " Submit " class="btn btn-orange">Upgrade Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
