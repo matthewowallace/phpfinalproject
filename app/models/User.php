@@ -52,6 +52,47 @@ class User
     }
 
     /**
+     * Update user to database.
+     * 
+     * @param string $username
+     * @param string $first_name
+     * @param string $last_name
+     * @param string $email
+     * @param string $password
+     */
+    public function updateUser($id, $username, $first_name, $last_name, $email, $password)
+    {
+        $sql = "UPDATE `users` SET `username`=:username,`first_name`=:first_name,`last_name`=:last_name,`email`=:email ";
+
+        // Update password if set
+        if (!is_null($password)) {
+            $sql .= ',`password`=:password ';
+        }
+
+        $sql .= 'WHERE `id`=:id';
+
+        $query = $this->db->prepare($sql);
+        $parameters = array(':id' => $id, ':username' => $username, ':first_name' => $first_name, ':last_name' => $last_name, ':email' => $email);
+
+        // Add password to parameters if set
+        if (!is_null($password)) {
+            $parameters[':password'] = $password;
+        }
+
+        // useful for debugging: you can see the SQL behind above construction by using:
+        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+
+        $query->execute($parameters);
+
+        if (!$query) {
+            Session::add('feedback_negative', 'An error occured updating user. Please try again.');
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Get user with email address.
      *
      * @param string $email
