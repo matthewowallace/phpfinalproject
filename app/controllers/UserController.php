@@ -136,12 +136,73 @@ class UserController extends Controller
     public function profile()
     {
         $User = $this->model('user');
-        $user = $User->getUserbyEmail(Session::get('email')); // getting all items
+        $user = $User->getUserbyEmail(Session::get('email')); // getting all users
 
         // load views. within the views we can echo out $products easily
         $this->view->render('auth/profile', [
             'user' => $user
         ]);
+    }
+
+    /**
+     * ACTION: Show the form for editing the specified resource.
+     * @param int $id Id of product
+     */
+    public function edit($id)
+    {
+        if (isset($id)) {
+            $User = $this->model('user');
+
+            $user = $User->getUserbyEmail(Session::get('email'));
+
+            $this->view->render('auth/edit', array('user' => $user));
+        } else {
+            // redirect user to requests index page (as we don't have a request_id)
+            Redirect::to('user/profile');
+        }
+    }
+
+    /**
+     * ACTION: Update the specified resource in storage.
+     */
+    public function update($id)
+    {
+        $is_dirty = false;
+        $password_hash = null;
+        if (!empty($_POST['password']) && !empty($_POST['cpassword'])) {         
+            // Sanitize and validate information.
+            $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+            $cpassword = filter_var($_POST['cpassword'], FILTER_SANITIZE_STRING);
+
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+            if ($password !== $cpassword) {
+                Session::add('feedback_negative', 'Passwords does not match');
+                $is_dirty = true;
+            }
+        }
+
+        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+        
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {                
+            Session::add('feedback_negative', 'Invalid email entered');
+            $is_dirty = true;
+        }
+
+        $successful = false;
+
+        if (!$is_dirty) {
+            $User = $this->model('User');
+            $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+            $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
+            $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);            
+            // $is_subscriber = filter_var($_POST['is_subscriber'], FILTER_SANITIZE_STRING);
+
+            // Save user if error return false
+            $sucessful = $User->updateUser($id, $username, $first_name, $last_name, $email, $password_hash);
+        }            
+
+        Redirect::to('user/profile');
     }
 
     /**

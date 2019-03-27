@@ -36,4 +36,12 @@ class View
         Session::set('feedback_positive', null);
         Session::set('feedback_negative', null);
     }
+
+    /**
+     * renders the feedback messages into the view
+     */
+    public static function renderAdminBar($view)
+    {
+        require APP . 'views/layouts/adminbar.php';
+    }
 } 

@@ -17,13 +17,14 @@ class Product
     /**
      * Gets all products from database
      */
-    public function getAllProducts()
+    public function getAllProducts($user_id=null)
     {
         $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM  `products`
         LEFT JOIN users ON `products`.`user_id`=`users`.`id`
         LEFT JOIN category ON `products`.`category_id`=`category`.`id`
         ";
         
+        // TODO: Query for the user that added the product
         $query = $this->db->prepare($sql);
 
         $query->execute();
@@ -35,17 +36,17 @@ class Product
     /**
      * Gets all products from database
      */
-    public function getProducts($q)
+    public function getProducts($id=null, $q)
     {
         $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM `products`
         LEFT JOIN users ON `products`.`user_id`=`users`.`id`
         LEFT JOIN category ON `products`.`category_id`=`category`.`id`
-        WHERE `products`.`description` LIKE :qa
+        WHERE `products`.`description` LIKE :qa AND `products`.`user_id`=:user_id
         ";
         
         $query = $this->db->prepare($sql);
 
-        $parameters = array(':qa' => '%' . trim($q) . '%');
+        $parameters = array(':qa' => '%' . trim($q) . '%', ':user_id' => $id);
         $query->execute($parameters);
         
         // return one row (we only have one result or nothing)

@@ -1,9 +1,6 @@
 <div>
-    <div class="tab">
-        <a class="tablinks" href="<?= URL ?>/user/profile">Dashboard</button>
-        <a class="tablinks active" href="<?= URL ?>/inventory">Inventory</button>
-        <!-- <button class="tablinks" onclick="openCity(event, 'Subscription')">Add Subscription</button> -->
-    </div>
+    <!-- echo out the admin bar -->
+    <?php View::renderAdminBar('inventory'); ?>
 
     <!-- echo out the system feedback (error and success messages) -->
     <?php View::renderFeedbackMessages(); ?>

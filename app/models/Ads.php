@@ -17,16 +17,16 @@ class Ads
     /**
      * Gets all ads from database
      */
-    public function getAllAds()
+    public function getAllAds($user_id)
     {
-        $sql = "SELECT `health_ads`.`id`, `health_ads`.`prod_image_path`, `health_ads`.`description`, `health_ads`.`brand`, `users`.`username`, `category`.`category_name` AS category, `health_ads`.`is_public`, `health_ads`.`cost`, `health_ads`.`created_at`, `health_ads`.`updated_at` FROM  `health_ads`
+        $sql = "SELECT `health_ads`.`id`, `users`.`username`, `health_ads`.`ad_type`, `health_ads`.`file_path`, `health_ads`.`description`, `health_ads`.`url`, `health_ads`.`start_date`, `health_ads`.`end_date`, `health_ads`.`cost`, `health_ads`.`is_active`, `health_ads`.`created_at`, `health_ads`.`updated_at` FROM  `health_ads`
         LEFT JOIN users ON `health_ads`.`user_id`=`users`.`id`
-        LEFT JOIN category ON `health_ads`.`category_id`=`category`.`id`
+        WHERE `users`.`id`=:user_id
         ";
         
         $query = $this->db->prepare($sql);
 
-        $query->execute();
+        $query->execute([':user_id' => $user_id]);
 
         // return one row (we only have one result or nothing)
         return $query->fetchAll();
@@ -35,47 +35,55 @@ class Ads
     /**
      * Filter for ads from database
      */
-    public function getAds($q)
+    public function getAds($user_id, $q)
     {
-        $sql = "SELECT `health_ads`.`id`, `health_ads`.`prod_image_path`, `health_ads`.`description`, `health_ads`.`brand`, `users`.`username`, `category`.`category_name` AS category, `health_ads`.`is_public`, `health_ads`.`cost`, `health_ads`.`created_at`, `health_ads`.`updated_at` FROM `health_ads`
+        $sql = "SELECT `health_ads`.`id`, `users`.`username`, `health_ads`.`ad_type`, `health_ads`.`file_path`, `health_ads`.`description`, `health_ads`.`url`, `health_ads`.`start_date`, `health_ads`.`end_date`, `health_ads`.`cost`, `health_ads`.`is_active`, `health_ads`.`created_at`, `health_ads`.`updated_at` FROM  `health_ads`
         LEFT JOIN users ON `health_ads`.`user_id`=`users`.`id`
-        LEFT JOIN category ON `health_ads`.`category_id`=`category`.`id`
-        WHERE `health_ads`.`description` LIKE :qa
+        WHERE `users`.`id`=:user_id AND `health_ads`.`description` LIKE :q
         ";
         
         $query = $this->db->prepare($sql);
 
-        $parameters = array(':qa' => '%' . trim($q) . '%');
+        $parameters = array(':user_id' => $user_id, ':q' => '%' . trim($q) . '%');
         $query->execute($parameters);
         
         // return one row (we only have one result or nothing)
         return $query->fetchAll();
     }
 
-    public function addProduct($description, $user_id, $category_id, $is_public, $cost, $prod_image_path="")
+    /**
+     * Add new ad
+     * @param [type] $user_id     [description]
+     * @param [type] $ad_type     [description]
+     * @param string $file_path   [description]
+     * @param [type] $description [description]
+     * @param [type] $url         [description]
+     * @param [type] $start_date  [description]
+     * @param [type] $end_date    [description]
+     * @param [type] $cost        [description]
+     * @param [type] $is_active   [description]
+     */
+    public function addAd($user_id, $ad_type="", $file_path="", $description, $url, $start_date, $end_date, $cost, $is_active)
     {
-        $sql = "INSERT INTO `health_ads`(`prod_image_path`, `description`, `user_id`, `category_id`, `is_public`, `cost`) VALUES (:prod_image_path, :description, :user_id, :category_id, :is_public, :cost)";
+        $sql = "INSERT INTO `health_ads`(`user_id`, `ad_type`, `file_path`, `description`, `url`, `start_date`, `end_date`, `cost`, `is_active`) VALUES (:user_id, :ad_type, :file_path, :description, :url, :start_date, :end_date, :cost, :is_active)";
 
         $query = $this->db->prepare($sql);
 
-        // $current_date = date("Y-m-d H:i:s");
-        $parameters = array(':prod_image_path' => $prod_image_path, ':description' => $description, ':user_id' => $user_id, ':category_id' => $category_id, ':is_public' => $is_public, ':cost' => $cost);
+        $parameters = array(':user_id' => $user_id, ':ad_type' => $ad_type, ':file_path' => $file_path, ':description' => $description, ':url' => $url, ':start_date' => $start_date, ':end_date' => $end_date, ':cost' => $cost, ':is_active' => $is_active);
         
         return $query->execute($parameters);
     }
 
     /**
-     * Get a permission from database
+     * Get a single ad
      * @param integer $id
      */
-    public function getProduct($id)
+    public function getAd($user_id, $id)
     {
-        $sql = "SELECT `id`, `brand`, `prod_image_path`, `description`, `user_id`, `category_id`, `is_public`, `cost`, `created_at`, `updated_at` FROM  `health_ads` WHERE `health_ads`.`id`=:id LIMIT 1";
+        $sql = "SELECT `id`, `user_id`, `ad_type`, `file_path`, `description`, `url`, `start_date`, `end_date`, `cost`, `is_active`, `created_at`, `updated_at` WHERE `user_id`=:user_id AND `id`=:id LIMIT 1";
         
-        $parameters = array(':id' => $id);
+        $parameters = array(':user_id' => $user_id, ':id' => $id);
 
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
         $query = $this->db->prepare($sql);
         $query->execute($parameters);
 
@@ -83,63 +91,51 @@ class Ads
         return $query->fetch();
     }
 
-    public function updateProduct($user_id, $id, $description, $category_id, $is_public, $cost, $prod_image_path="")
+    /**
+     * Update ad
+     * @param  [type] $user_id         [description]
+     * @param  [type] $id              [description]
+     * @param  [type] $description     [description]
+     * @param  [type] $category_id     [description]
+     * @param  [type] $is_public       [description]
+     * @param  [type] $cost            [description]
+     * @param  string $prod_image_path [description]
+     * @return [type]                  [description]
+     */
+    public function updateAd($user_id, $ad_type, $file_path="", $description, $url, $start_date, $end_date, $cost, $is_active)
     {
-        $sql = "UPDATE `health_ads` SET `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public WHERE user_id=:user_id AND id=:id";
+        $sql = "UPDATE `health_ads` SET `ad_type`=:ad_type,`description`=:description,`url`=:url,`start_date`=:start_date,`end_date`=:end_date,`cost`=:cost,`is_active`=:is_active ";
 
         // If image was uploaded use this query
-        if (!empty($prod_image_path)) {
-            $sql = "UPDATE `health_ads` SET `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public, `prod_image_path`=:prod_image_path WHERE user_id=:user_id AND id=:id";
+        if (!is_null($file_path)) {
+            $sql .= ',`file_path`=:file_path ';
         }
+
+        $sql .= 'WHERE `user_id`=:user_id AND `id`=:id';
         
         $query = $this->db->prepare($sql);
-        $parameters = array(':id' => $id, ':user_id' => $user_id, ':description' => $description, ':category_id' => $category_id, ':cost' => $cost, ':is_public' => $is_public);
+        $parameters = array(':user_id' => $user_id, ':ad_type' => $ad_type, ':description' => $description, ':url' => $url, ':start_date' => $start_date, ':end_date' => $end_date, ':cost' => $cost, ':is_active' => $is_active);
 
         // If image was uploaded update path
-        if (!empty($prod_image_path)) { 
-            $parameters[':prod_image_path'] = $prod_image_path;
+        if (!empty($file_path)) { 
+            $parameters[':file_path'] = $file_path;
         }
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 
         return $query->execute($parameters);
     }
 
      /**
-     * Deletes a request
+     * Delete
      *
      * @param [type] $id
      * @return void
      */
-    public function deleteProduct($id)
+    public function deleteAd($user_id,  $id)
     {
-        $sql = "DELETE FROM `health_ads` WHERE id=:id";
+        $sql = "DELETE FROM `health_ads` WHERE user_id=:user_id AND id=:id";
         $query = $this->db->prepare($sql);
-        $parameters = array(':id' => $id);
+        $parameters = array(':user_id' => $user_id, ':id' => $id);
 
-        // useful for debugging: you can see the SQL behind above construction by using:
-        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
-
-        $query->execute($parameters);
-    }
-
-    public function getAllCategories()
-    {
-        $sql = "SELECT `id`, `category_name`, `created_at`, `updated_at` FROM `category` ORDER BY category_name ASC";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-
-        // return one row (we only have one result or nothing)
-        return $query->fetchAll();
-    }
-
-
-    public function getAllBrands()
-    {
-        $sql = "SELECT `id`, `brand_name`, `created_at`, `updated_at` FROM `brand` ORDER BY brand_name ASC";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-
-        return $query->fetchAll();
+        return $query->execute($parameters);
     }
 }

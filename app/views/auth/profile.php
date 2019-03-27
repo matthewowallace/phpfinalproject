@@ -1,9 +1,6 @@
 
-    <div class="tab">
-        <a class="tablinks active" href="<?= URL ?>/user/profile">Dashboard</button></a>
-        <a class="tablinks" href="<?= URL ?>/inventory">Inventory</button></a>
-        <!-- <button class="tablinks" onclick="openCity(event, 'Subscription')">Add Subscription</button> -->
-    </div>
+    <!-- echo out the admin bar -->
+    <?php View::renderAdminBar('profile'); ?>
 
     <div id="New-Item" class="tabcontent" style="display: block;">
             <div class="container">
@@ -46,16 +43,16 @@
 
                                 <div class="f2">
                                     <div class="user-info"><label>Username:  <?= $this->user->username ?></label></div><br>
-                                     <div class="user-info"><label>Phone:  <?= $this->user->username ?></label></div><br>
-                                     <div class="user-info"><label>Email:  <?= $this->user->username ?></label></div><br>
-                                     <div class="user-info"><label>Company:  <?= $this->user->username ?></label></div><br>
-                                    <div class="user-info"><label>Country:  <?= $this->user->username ?></label></div><br>
-                                    <a><button id="myBtn" type="button" class="btn btn-orange">Edit Info</button></a>
+                                     <!-- <div class="user-info"><label>Phone:  <?= $this->user->username ?></label></div><br> -->
+                                     <div class="user-info"><label>Email:  <?= $this->user->email ?></label></div><br>
+                                     <!-- <div class="user-info"><label>Company:  <?= $this->user->username ?></label></div><br> -->
+                                    <!-- <div class="user-info"><label>Country:  <?= $this->user->username ?></label></div><br> -->
+                                    <a href="<?= URL . '/user/edit/' . $this->user->id; ?>"><button id="myBtn" type="button" class="btn btn-orange">Edit Info</button></a>
 
                                 <hr>
-                                    <div class="user-info"><label>UserSince:  <?= $this->user->username ?></label></div><br>
-                                    <div class="user-info"><label>Last Log in:  <?= $this->user->username ?></label></div><br>
-                                    <div class="user-info"><label>Subscription Expiration Date:  <?= $this->user->username ?></label></div>
+                                    <div class="user-info"><label>UserSince:  <?= $this->user->created_at ?></label></div><br>
+                                    <!-- <div class="user-info"><label>Last Log in:  <?= $this->user->username ?></label></div><br> -->
+                                    <div class="user-info"><label>Subscription Expiration Date:  <?= $this->user->subscription_end ?></label></div>
                                 </div>
                             </div>
                           </div>
