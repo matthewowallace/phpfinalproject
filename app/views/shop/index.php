@@ -15,12 +15,12 @@
                                 <span class="itemDescription">
                                             Brand: <?php echo htmlspecialchars($product->brand, ENT_QUOTES, 'UTF-8'); ?> <br>
                                             Category: <?php echo htmlspecialchars($product->category, ENT_QUOTES, 'UTF-8'); ?><br>
-                                            Provided by <a href="#"><?php echo htmlspecialchars($product->username, ENT_QUOTES, 'UTF-8'); ?></a> <br>
+                                            Provided by <a href="<?= URL . '/shop/seller/' . $product->seller_id ?>"><?php echo htmlspecialchars($product->username, ENT_QUOTES, 'UTF-8'); ?></a> <br>
                                         </span><br>
                                 Price: $<span ref="iphoneX" class="uk-text-lead itemPrice"> <?php echo htmlspecialchars($product->cost, ENT_QUOTES, 'UTF-8'); ?></span> USD <br><br>
                                 <span class="uk-padding uk-text-center">
 
-                                            <button ref="iphoneX_01" class="uk-button uk-button-primary uk-button-small itemSelect">Select</button>
+                                            <button ref="iphoneX_01" class="uk-button uk-button-primary uk-button-small itemSelect">Add to Cart</button>
                                         </span>
                             </p>
                         </div>

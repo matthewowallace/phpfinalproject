@@ -18,22 +18,24 @@
         <table>
             <tr>
                 <th>&nbsp;</th>
-                <th>Product ID</th>
-                <th>Brand</th>
-                <th>Category</th>
+                <!-- <th>Product ID</th> -->
+                <th>Product</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Brand</th>
+                <th>Category</th>
                 <th>Status</th>
                 <th>Edit</th>
             </tr>
             <?php foreach ($this->products as $product) : ?>
                 <tr>
                     <td><img class="prod-img" src="<?= URL . '/img/' . $product->prod_image_path ?>" alt=""></td>
-                    <td><?php echo htmlspecialchars($product->id, ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo htmlspecialchars($product->brand, ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo htmlspecialchars($product->category, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <!--<td><?php echo htmlspecialchars($product->id, ENT_QUOTES, 'UTF-8'); ?></td>-->
+                    <td><?php echo htmlspecialchars($product->product_name, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($product->description, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td>$<?php echo htmlspecialchars($product->cost, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($product->brand, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($product->category, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo $product->is_public ? 'Active' : 'In-active'; ?></td>
                     <td class="edit">
                         <?php $url = URL . '/inventory/edit/' . $product->id; ?>

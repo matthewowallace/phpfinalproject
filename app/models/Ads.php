@@ -80,7 +80,7 @@ class Ads
      */
     public function getAd($user_id, $id)
     {
-        $sql = "SELECT `id`, `user_id`, `ad_type`, `file_path`, `description`, `url`, `start_date`, `end_date`, `cost`, `is_active`, `created_at`, `updated_at` WHERE `user_id`=:user_id AND `id`=:id LIMIT 1";
+        $sql = "SELECT `id`, `user_id`, `ad_type`, `file_path`, `description`, `url`, `start_date`, `end_date`, `cost`, `is_active`, `created_at`, `updated_at` FROM  `health_ads` WHERE `user_id`=:user_id AND `id`=:id LIMIT 1";
         
         $parameters = array(':user_id' => $user_id, ':id' => $id);
 
@@ -89,6 +89,25 @@ class Ads
 
         // fetch() is the PDO method that get exactly one result
         return $query->fetch();
+    }
+
+    /**
+     * Gets all products from database
+     */
+    public function getFitnessBar()
+    {
+        $sql = "SELECT `health_ads`.`id`, `health_ads`.`user_id`, `health_ads`.`ad_type`, `health_ads`.`file_path`, `health_ads`.`description`, `health_ads`.`url`, `health_ads`.`start_date`, `health_ads`.`end_date`, `health_ads`.`cost`, `health_ads`.`is_active`, `health_ads`.`created_at`, `health_ads`.`updated_at` FROM `health_ads`
+        INNER JOIN users ON `health_ads`.`user_id`=`users`.`id`
+        WHERE `health_ads`.`cost` <> NULL OR `health_ads`.`cost` > 0
+        ";
+        
+        $query = $this->db->prepare($sql);
+
+        // $parameters = array(':qa' => '%' . trim($q) . '%');
+        $query->execute();
+        
+        // return one row (we only have one result or nothing)
+        return $query->fetchAll();
     }
 
     /**

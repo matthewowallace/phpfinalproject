@@ -139,10 +139,12 @@
   <div class="container-fluid">
     <div id="fitslider">
   <div id="images">
-      <?php foreach ($this->products as $product) : ?>
-    <img  src="<?= URL . '/img/' . $product->prod_image_path?>" alt="">
-     <img  src="<?= URL . '/img/' . $product->prod_image_path?>" alt="">
-      <img src="<?= URL . '/img/' . $product->prod_image_path?>" alt="">
+    <?php foreach ($this->ads as $ad) : ?>
+      <?php if ($ad->ad_type == 'Image') : ?>
+        <img  src="<?= $ad->file_path?>" alt="">
+      <?php else: ?>
+        <video src="<?= $ad->file_path?>" controls></video>
+      <?php endif; ?>
     <?php endforeach; ?>
   </div>
 </div>
@@ -159,12 +161,12 @@
                     <div class="row">
                         <div class="col wow fadeInRight" data-wow-offset="0" data-wow-delay="0.3s">
                             <li>
-                                <a href="google.com" title="Inventory Manager">
+                                <a href="<?= URL ?>/inventory" title="Inventory Manager">
                                     <div class="text-center">
                                         <div class="hi-icon-wrap hi-icon-effect">
                                       
                                                   <img src="<?= URL ?>/img/inventorymanager.png">  
-                                                    <a href="Aboutus.php"><button type="button" class="btn btn-orange">View More</button></a>
+                                                    <a href="<?= URL ?>/inventory"><button type="button" class="btn btn-orange">View More</button></a>
                                         </div>
                                     </div>
                                 </a>
@@ -172,12 +174,12 @@
                         </div>
                         <div class="col wow fadeInLeft" data-wow-offset="0" data-wow-delay="0.3s">
                             <li>
-                                <a href="google.com" title="Fitness Bar (Notice Board)">
+                                <a href="#fitslider" title="Fitness Bar (Notice Board)">
                                     <div class="text-center">
                                         <div class="hi-icon-wrap hi-icon-effect">
                                            
                                                     <img src="<?= URL ?>/img/fitnessbar.png">  
-                                                      <a href="Aboutus.php"><button type="button" class="btn btn-orange">View More</button></a>
+                                                      <a href="#fitslider"><button type="button" class="btn btn-orange">View More</button></a>
                                         </div>
                                     </div>
                                 </a>
@@ -185,13 +187,13 @@
                         </div>
                         <div class="col wow fadeInLeft" data-wow-offset="0" data-wow-delay="0.3s">
                             <li>
-                                <a href="google.com" title="Online Shopping">
+                                <a href="<?= URL ?>/shop" title="Online Shopping">
 
                                     <div class="text-center">
                                         <div class="hi-icon-wrap hi-icon-effect">
                                           
                                                 <img src="<?= URL ?>/img/onlineshopping.png">  
-                                                  <a href="Aboutus.php"><button type="button" class="btn btn-orange">View More</button></a>
+                                                  <a href="<?= URL ?>/shop"><button type="button" class="btn btn-orange">View More</button></a>
                                         </div>
                                     </div>
                                 </a>
@@ -203,11 +205,9 @@
         </div>
 
       <?php
-      include('contact_form.php');
+      // include('contact.php');
       ?>
 
-
-    <!--/#contact-->
     <div class='scrolltop'>
         <div><h4>Stay Connected</h4></div>
     <div class='scroll icon'><i class="fa fa-4x fa-angle-up"></i></div>

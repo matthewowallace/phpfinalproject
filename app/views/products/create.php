@@ -9,8 +9,13 @@
         <div class="row">
             <form action="<?= URL ?>/inventory/store" method="post" class="form clearfix newform"  enctype="multipart/form-data">
                 <span class="in_form">
+                    <label for="product_name">Product Name</label>
+                    <input type="text" name="product_name" id="product_name" placeholder="Product name" required>
+                </span>
+
+                <span class="in_form">
                     <label for="description">Description</label>
-                    <input type="text" name="description" id="description" placeholder="Product Description" required>
+                    <textarea name="description" id="description" placeholder="Product description" required></textarea>
                 </span>
 
                 <span class="in_form">

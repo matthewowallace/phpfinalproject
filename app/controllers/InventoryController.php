@@ -59,6 +59,7 @@ class InventoryController extends Controller
             
             // $prod_image_path = filter_var($_POST['prod_image_path'], FILTER_SANITIZE_STRING);
             $user_id = Session::get('id');
+            $product_name = filter_var($_POST['product_name'], FILTER_SANITIZE_STRING);
             $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
             $category_id = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
             $is_public = filter_var($_POST['is_public'], FILTER_SANITIZE_STRING);
@@ -97,7 +98,7 @@ class InventoryController extends Controller
             }
 
             $Product = $this->model('product');
-            $product = $Product->addProduct($description, $user_id, $category_id, $is_public, $cost,$prod_image_path);
+            $product = $Product->addProduct($product_name, $description, $user_id, $category_id, $is_public, $cost,$prod_image_path);
 
             // TODO: Create error page for displaying messages and use sessions for showing messages.
             if (!$product) {
@@ -146,6 +147,7 @@ class InventoryController extends Controller
         // if we have POST data to create a new vehicle_request entry
         if (isset($_POST["submit_update_product"])) {
             $user_id = Session::get('id');
+            $product_name = filter_var($_POST['product_name'], FILTER_SANITIZE_STRING);
             $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
             $category_id = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
             $is_public = filter_var($_POST['is_public'], FILTER_SANITIZE_STRING);
@@ -196,14 +198,12 @@ class InventoryController extends Controller
     }
     
     /**
-     * ACTION: Remove the specified resource from storage.
-     * @param int $song_id Id of the to-delete admin
+     * Delete
      */
     public function delete($id)
     {
         if (isset($_POST["submit_delete_product"])) {
             $Product = $this->model('product');
-            // do deleteSong() in model/model.php
             $Product->deleteProduct($id);
         }
 

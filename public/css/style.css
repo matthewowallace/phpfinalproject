@@ -1855,6 +1855,14 @@ width:35px;
 
 #images img {
   float: left;
+  height: 100%;
+  width: auto;
+}
+
+#images video {
+  float: left;
+  height: 100%;
+  width: auto;
 }
 
 @keyframes slide {

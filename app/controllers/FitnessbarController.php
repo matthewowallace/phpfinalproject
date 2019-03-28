@@ -85,7 +85,7 @@ class FitnessbarController extends Controller
                 
                 if (in_array($file_ext, array('jpeg', 'jpg', 'png')) === true) {
                     $ad_type = 'Image';
-                } else {
+                } elseif(in_array($file_ext, array('mp4', 'WebM', 'ogg')) === true) {
                     $ad_type = 'Video';
                 }
                 
@@ -201,15 +201,14 @@ class FitnessbarController extends Controller
     }
     
     /**
-     * ACTION: Remove the specified resource from storage.
-     * @param int $song_id Id of the to-delete admin
+     * Delete.
      */
     public function delete($id)
     {
         if (isset($_POST["submit_delete_ad"])) {
+            $user_id = Session::get('id');
             $Ad = $this->model('ads');
-            // do deleteSong() in model/model.php
-            $Ad->deleteAd($id);
+            $Ad->deleteAd($user_id, $id);
         }
 
         // where to go after vehicle_request has been added

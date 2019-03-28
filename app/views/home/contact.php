@@ -74,8 +74,6 @@ function test_input($data){
   <div id="contact">
                     <div class="cover-1">
                         <div class="container">
-                        </div>
-                        <div class="container">
                             <div class="row">
                                 <div class="col-md-4 wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">
                                     <div id="sendmessage">Your message has been sent. Thank you!</div>

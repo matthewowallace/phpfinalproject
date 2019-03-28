@@ -19,7 +19,7 @@ class Product
      */
     public function getAllProducts($user_id=null)
     {
-        $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM  `products`
+        $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`product_name`, `products`.`description`, `products`.`brand`, `users`.`username`, `products`.`user_id` as seller_id, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM  `products`
         LEFT JOIN users ON `products`.`user_id`=`users`.`id`
         LEFT JOIN category ON `products`.`category_id`=`category`.`id`
         ";
@@ -38,7 +38,7 @@ class Product
      */
     public function getProducts($id=null, $q)
     {
-        $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM `products`
+        $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`product_name`,`products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM `products`
         LEFT JOIN users ON `products`.`user_id`=`users`.`id`
         LEFT JOIN category ON `products`.`category_id`=`category`.`id`
         WHERE `products`.`description` LIKE :qa AND `products`.`user_id`=:user_id
@@ -53,14 +53,34 @@ class Product
         return $query->fetchAll();
     }
 
-    public function addProduct($description, $user_id, $category_id, $is_public, $cost, $prod_image_path="")
+    /**
+     * Gets all products from database
+     */
+    public function getSellerProducts($id=null, $q="")
     {
-        $sql = "INSERT INTO `products`(`prod_image_path`, `description`, `user_id`, `category_id`, `is_public`, `cost`) VALUES (:prod_image_path, :description, :user_id, :category_id, :is_public, :cost)";
+        $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`product_name`,`products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM `products`
+        LEFT JOIN users ON `products`.`user_id`=`users`.`id`
+        LEFT JOIN category ON `products`.`category_id`=`category`.`id`
+        WHERE `products`.`description` LIKE :q AND `products`.`user_id`=:user_id
+        ";
+        
+        $query = $this->db->prepare($sql);
+
+        $parameters = array(':q' => '%' . trim($q) . '%', ':user_id' => $id);
+        $query->execute($parameters);
+        
+        // return one row (we only have one result or nothing)
+        return $query->fetchAll();
+    }
+
+    public function addProduct($product_name, $description, $user_id, $category_id, $is_public, $cost, $prod_image_path="")
+    {
+        $sql = "INSERT INTO `products`(`prod_image_path`, `product_name`, `description`, `user_id`, `category_id`, `is_public`, `cost`) VALUES (:prod_image_path, :product_name, :description, :user_id, :category_id, :is_public, :cost)";
 
         $query = $this->db->prepare($sql);
 
         // $current_date = date("Y-m-d H:i:s");
-        $parameters = array(':prod_image_path' => $prod_image_path, ':description' => $description, ':user_id' => $user_id, ':category_id' => $category_id, ':is_public' => $is_public, ':cost' => $cost);
+        $parameters = array(':prod_image_path' => $prod_image_path, ':product_name' => $product_name, ':description' => $description, ':user_id' => $user_id, ':category_id' => $category_id, ':is_public' => $is_public, ':cost' => $cost);
         
         return $query->execute($parameters);
     }
@@ -71,7 +91,7 @@ class Product
      */
     public function getProduct($id)
     {
-        $sql = "SELECT `id`, `brand`, `prod_image_path`, `description`, `user_id`, `category_id`, `is_public`, `cost`, `created_at`, `updated_at` FROM  `products` WHERE products.id=:id LIMIT 1";
+        $sql = "SELECT `id`, `brand`, `prod_image_path`, `product_name`, `description`, `user_id`, `category_id`, `is_public`, `cost`, `created_at`, `updated_at` FROM  `products` WHERE products.id=:id LIMIT 1";
         
         $parameters = array(':id' => $id);
 
@@ -84,13 +104,13 @@ class Product
         return $query->fetch();
     }
 
-    public function updateProduct($user_id, $id, $description, $category_id, $is_public, $cost, $prod_image_path="")
+    public function updateProduct($user_id, $id, $product_name, $description, $category_id, $is_public, $cost, $prod_image_path="")
     {
-        $sql = "UPDATE `products` SET `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public WHERE user_id=:user_id AND id=:id";
+        $sql = "UPDATE `products` SET `product_name` = :product_name, `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public WHERE user_id=:user_id AND id=:id";
 
         // If image was uploaded use this query
         if (!empty($prod_image_path)) {
-            $sql = "UPDATE `products` SET `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public, `prod_image_path`=:prod_image_path WHERE user_id=:user_id AND id=:id";
+            $sql = "UPDATE `products` SET `product_name` = :product_name, `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public, `prod_image_path`=:prod_image_path WHERE user_id=:user_id AND id=:id";
         }
         
         $query = $this->db->prepare($sql);

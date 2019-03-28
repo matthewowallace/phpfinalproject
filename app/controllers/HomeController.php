@@ -11,18 +11,16 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function index($name = '', $mood = '')
+    public function index()
     {
         // die(var_dump(Session::get('username')));
         $User = $this->model('user');
         $user = $User->getUserByUsername(SESSION::get('username'));
-        $product = $this->model('product');
-        $products = $product->getAllProducts();
+        $ad = $this->model('ads');
+        $ads = $ad->getFitnessBar();
 
         $this->view->render('home/index', [
-            'name' => $user,
-            'mood' => $mood,
-            'products' => $products,
+            'ads' => $ads,
         ]);
     }
 }

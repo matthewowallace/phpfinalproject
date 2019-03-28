@@ -20,7 +20,7 @@
 
                 <span class="in_form">
                     <label for="cost">Cost</label>
-                    <input type="text" name="cost" id="cost" placeholder="Cost" required>
+                    <input type="text" name="cost" id="cost" placeholder="Cost">
                 </span>
 
                 <span class="in_form">

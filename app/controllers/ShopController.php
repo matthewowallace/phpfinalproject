@@ -26,6 +26,24 @@ class ShopController extends Controller
             'categories' => $categories,
             ]
         );
-    }    
+    }
+
+    /**
+     * The default controller method.
+     *
+     * @return void
+     */
+    public function seller($id)
+    {        
+        // TODO: Add search filter
+        $product = $this->model('product');
+        $products = $product->getSellerProducts($id, $q="");
+
+        // load views. within the views we can echo out $products easily
+        $this->view->render('shop/index', [
+            'products' => $products,
+            ]
+        );
+    }
 }
 

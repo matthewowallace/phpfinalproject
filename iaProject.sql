@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 22, 2019 at 08:10 PM
+-- Generation Time: Mar 28, 2019 at 06:32 PM
 -- Server version: 10.1.37-MariaDB-0+deb9u1
 -- PHP Version: 7.0.33-0+deb9u3
 
@@ -139,7 +139,8 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `brand` int(11) DEFAULT NULL,
   `prod_image_path` varchar(191) DEFAULT NULL,
-  `description` varchar(50) NOT NULL,
+  `product_name` varchar(70) DEFAULT NULL,
+  `description` text NOT NULL,
   `user_id` int(11) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   `is_public` tinyint(4) NOT NULL DEFAULT '0',
@@ -285,7 +286,7 @@ ALTER TABLE `credit_cards`
 -- AUTO_INCREMENT for table `health_ads`
 --
 ALTER TABLE `health_ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `orders`
 --
@@ -300,7 +301,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user_preference`
 --
@@ -329,7 +330,8 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`brand`) REFERENCES `brand` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`brand`) REFERENCES `brand` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `user_preference`

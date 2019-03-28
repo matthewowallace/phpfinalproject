@@ -9,6 +9,11 @@
         <div class="row">
             <form action="<?php echo URL . '/inventory/update/' . htmlspecialchars($this->product->id, ENT_QUOTES, 'UTF-8'); ?>" method="post" class="form clearfix newform" enctype="multipart/form-data">
                 <span class="in_form">
+                    <label for="product_name">Product Name</label>
+                    <input type="text" name="product_name" id="product_name" placeholder="Product name" required value="<?= $this->product->product_name ?>">
+                </span>
+
+                <span class="in_form">
                     <label for="description">Description</label>
                     <input type="text" name="description" id="description" placeholder="Product Description" required value="<?= $this->product->description ?>">
                 </span>
