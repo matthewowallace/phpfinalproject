@@ -47,7 +47,7 @@
             <li>
               <a href="#!">Fitness Partners</a>
             </li>
-            <li><a href="contactUs.php">Contact</a></li>
+            <li><a href="<?= URL ?>/contact">Contact</a></li>
             <li><a href="<?= URL ?>/shop">Shop</a></li>
             <?php if (Session::userIsLoggedIn()) : ?>
               <li>

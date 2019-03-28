@@ -4,7 +4,7 @@
    <p>London is the capital city of England.The shadow of death covers the ground, ravaged by chaos and destruction. A portal, known as the Void, let sinister demons into our world. Their goal is to eliminate all humanity. But the Gods gave humanity a slither of hope: SoulWorkers.
 
  Children that were once lost to the void have returned to the world. Equipped with supernatural powers, they have the strength to put an end to the forces of darkness.</p>
-   <div class="Support"><a>Privacy Policy</a><a>Terms Of Use</a><a>Support</a></div>
+   <div class="Support"><a>Privacy Policy</a><a href="<?= URL ?>/terms">Terms Of Use</a><a>Support</a></div>
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© HealthJam,INC.2019 Copyright:
       <a href="https://mdbootstrap.com/education/bootstrap/"> All Rights Reserved. All trademarks referenced herein are the properties of their respective owners.</a>
