@@ -22,7 +22,7 @@ class FitnessbarController extends Controller
         if (isset($_POST["submit_search_ad"])) {
             $q = filter_var($_POST['q'], FILTER_SANITIZE_STRING);
             
-            $ads = $Ad->getAds($q);
+            $ads = $Ad->getAds($user_id, $q);
         } else {
             $ads = $Ad->getAllAds($user_id); // getting all items
         }
@@ -51,6 +51,7 @@ class FitnessbarController extends Controller
      * @return void
      */
     public function store() {
+
         // if we have POST data to create a new vehicle_request entry
         if (isset($_POST["submit_add_ad"])) {
             
@@ -65,7 +66,7 @@ class FitnessbarController extends Controller
             $file_path = '';
             $ad_type = '';
 
-            if (isset($_FILES['image'])){
+            if (isset($_FILES['image']['name'])) {
                 $errors= array();
                 $file_name = $_FILES['image']['name'];
                 $file_size =$_FILES['image']['size'];
@@ -75,7 +76,7 @@ class FitnessbarController extends Controller
                 
                 $extensions= array("jpeg","jpg","png","mp4","flv");
                 
-                if (in_array($file_ext, $extensions) === false){
+                if (in_array($file_ext, $extensions) === false) {
                     $errors[]="extension not allowed, please choose a JPEG, PNG or MP4 file.";
                 }
                 
@@ -96,7 +97,7 @@ class FitnessbarController extends Controller
                     } else {
                         die("Upload failed");
                     }
-                }else{
+                } else {
                     print_r($errors);
                 }
             }
@@ -133,10 +134,10 @@ class FitnessbarController extends Controller
         if (isset($id)) {
             $Ad = $this->model('ads');
 
-            $ad = $Ad->getAd($id);
-            $categories = $Ad->getAllCategories();
+            $user_id = Session::get('id');
+            $ad = $Ad->getAd($user_id, $id);
 
-            $this->view->render('fitnessbar/edit', array('ad' => $ad, 'categories' => $categories));
+            $this->view->render('fitnessbar/edit', array('ad' => $ad));
         } else {
             // redirect user to requests index page (as we don't have a request_id)
             Redirect::to('fitnessbar/index');
@@ -152,10 +153,13 @@ class FitnessbarController extends Controller
         if (isset($_POST["submit_update_ad"])) {
             $user_id = Session::get('id');
             $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
-            $category_id = filter_var($_POST['category'], FILTER_SANITIZE_STRING);
-            $is_public = filter_var($_POST['is_public'], FILTER_SANITIZE_STRING);
+            $url = filter_var($_POST['url'], FILTER_SANITIZE_STRING);
             $cost = (float)filter_var($_POST['cost'], FILTER_SANITIZE_STRING);
-            $prod_image_path = '';
+            $start_date = filter_var($_POST['start_date'], FILTER_SANITIZE_STRING);
+            $end_date = filter_var($_POST['end_date'], FILTER_SANITIZE_STRING);
+            $is_active = filter_var($_POST['is_active'], FILTER_SANITIZE_STRING);
+            $file_path = '';
+            $ad_type = '';
 
             if (isset($_FILES['image'])){
                 $errors= array();
@@ -189,7 +193,7 @@ class FitnessbarController extends Controller
             }
 
             $Ad = $this->model('ads');
-            $ad = $Ad->updateAd($user_id, $id, $description, $category_id, $is_public, $cost,$prod_image_path);
+            $ad = $Ad->updateAd($user_id, $id, $ad_type, $file_path, $description, $url, $start_date, $end_date, $cost, $is_active);
             
             if (!$ad) {
                 Redirect::to('fitnessbar/edit/' . $id);

@@ -16,7 +16,7 @@
         <ul>
             <li class="slide">
                 <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span>• Eat good live good exercise right<class="quote-marks">"</span>
+                    <p class="quote-phrase"><span class="quote-marks">"</span> Eat good live good exercise right <span class="quote-marks">"</span>
 
                     </p>
                 </div>
@@ -89,7 +89,7 @@
 
 <!-- Text Banner -->
 <section class="About-Fitness">
-  <div class="fit">
+  <div class="container-fluid">
   <div class=row>
     <div class="col-sm-6">
     <div class="fitness-left">
@@ -113,7 +113,7 @@
       </div>
     </div>
   </div>
-  <div>
+</div>
 </section>
   
   <!-- end of Text banner -->
@@ -131,7 +131,6 @@
       </div>
         </div>    
         </div> 
-      </div>
     </section>
 
 

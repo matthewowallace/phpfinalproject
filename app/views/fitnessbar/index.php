@@ -10,11 +10,11 @@
             <h3>My Promotions</h3>
             <span><a href="<?= URL ?>/fitnessbar/create" class="opt">Add promotion</a></span>
             <form method="POST" action="<?php echo URL . '/fitnessbar'; ?>" accept-charset="UTF-8" style="display: inline-block;">
-                <input name="q" placeholder="Search" value="<?= !empty($this->q) ? $this->q : '' ?>" type="text">
-                <input value="Search" type="submit" name="submit_search_ad">
+                <input class="Search" name="q" placeholder="Search" value="<?= !empty($this->q) ? $this->q : '' ?>" type="text">
+                <input class="Searchbtn" value="Search" type="submit" name="submit_search_ad">
             </form>
         </div>
-
+<div class="container">
         <table>
             <tr>
                 <th>&nbsp;</th>
@@ -37,7 +37,7 @@
                     <td><?php echo $ad->is_active ? 'Active' : 'In-active'; ?></td>
                     <td class="edit">
                         <?php $url = URL . '/fitnessbar/edit/' . $ad->id; ?>
-                        <a href="<?= $url ?>" class="opt">Edit
+                        <a href="<?= $url ?>" class="option">Edit
                             <i class="ion-edit btn-small"></i>
                         </a>
                         <form method="POST" action="<?php echo URL . '/fitnessbar/delete/' . htmlspecialchars($ad->id, ENT_QUOTES, 'UTF-8'); ?>" accept-charset="UTF-8" style="display: inline-block;" onsubmit="return confirm('Are you sure?');">
@@ -56,5 +56,6 @@
                 <?php endif; ?>
             </tfoot>
         </table>
+    </div>
     </div>
 </div>

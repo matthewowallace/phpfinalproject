@@ -86,7 +86,7 @@ class InventoryController extends Controller
                 
                 if (empty($errors) == true) {
                     // die(ASSET_ROOT . '/img/' . $file_name);
-                    $prod_image_path = $file_name;
+                    $prod_image_path = URL . '/img/' . $file_name;
                     if (move_uploaded_file($file_tmp, ASSET_ROOT . '/img/' . $file_name)) {
                         echo "File is valid, and was successfully uploaded.\n";
                     } else {
@@ -154,7 +154,7 @@ class InventoryController extends Controller
             $cost = (float)filter_var($_POST['cost'], FILTER_SANITIZE_STRING);
             $prod_image_path = '';
 
-            if (isset($_FILES['image'])){
+            if (!empty($_FILES['image']['name'])) {
                 $errors= array();
                 $file_name = $_FILES['image']['name'];
                 $file_size =$_FILES['image']['size'];
@@ -174,7 +174,7 @@ class InventoryController extends Controller
                 
                 if (empty($errors) == true) {
                     // die(ASSET_ROOT . '/img/' . $file_name);
-                    $prod_image_path = $file_name;
+                    $prod_image_path = URL . '/img/' . $file_name;
                     if (move_uploaded_file($file_tmp, ASSET_ROOT . '/img/' . $file_name)) {
                         echo "File is valid, and was successfully uploaded.\n";
                     } else {
@@ -186,8 +186,8 @@ class InventoryController extends Controller
             }
 
             $Product = $this->model('product');
-            $product = $Product->updateProduct($user_id, $id, $description, $category_id, $is_public, $cost,$prod_image_path);
-            
+            $product = $Product->updateProduct($user_id, $id, $product_name, $description, $category_id, $is_public, $cost, $prod_image_path);
+
             if (!$product) {
                 Redirect::to('inventory/edit/' . $id);
             }

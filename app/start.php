@@ -29,3 +29,8 @@ define('URL',
 
 // Root path for assets
 define('ASSET_ROOT', INC_ROOT . 'public');
+
+/**
+ * @var Get the total number of items in shopping cart.
+ */
+$cart_count = 0;

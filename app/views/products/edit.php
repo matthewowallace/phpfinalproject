@@ -49,7 +49,6 @@
                 <span class="form__btn--group">
                     <input type="submit" value="Update Product" class="btn btn-orange" name="submit_update_product">
                 </span>
-
             </form>
         </div>
     </div>

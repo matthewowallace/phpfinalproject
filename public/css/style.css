@@ -200,6 +200,18 @@ p:last-child {
   background-color: #E5E5E5;
 }
 
+.order {
+  margin-bottom: 10px;
+}
+
+.order li {
+  margin-bottom: 10px;
+}
+
+.order li img {
+  margin-right: 30px;
+}
+
 .uk-grid {
 	margin: 0;
 	padding: 0;
@@ -275,6 +287,13 @@ p:last-child {
     width: 20%;
   }
 } */
+
+.box {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  padding: 2em;
+  margin-bottom: 2em;
+}
 
 .brand {
   position: absolute;
@@ -643,6 +662,7 @@ nav ul li ul li a {
 .About-Fitness{
   margin-top: -215px;
   font-family: "Rajdhani";
+  color: #fff;
 }
 .fitness-right{
   margin-top: 5px;
@@ -660,8 +680,7 @@ nav ul li ul li a {
  text-align: left;
  padding-left: 10px;
  font-size: 18px;
- padding-right: 180px;
- color:#ccc;
+ color:#fff;
 }
 
 .fitness-left h3{
@@ -1534,11 +1553,16 @@ width:35px;
 }
 
 
+.profile-text{
+  text-align: center;
+}
+
 .profile-text h3{
   padding-top: 10px;
-  text-align: left;
-  font-size: 18px;
-  color: #ccc;
+  text-align: center;
+  font-size: 30px;
+  color: #c77617;
+  padding-bottom: 30px;
 
 }
 
@@ -1882,4 +1906,82 @@ width:35px;
     margin-top: -430px;
     transform: scale(.5,.5);
   }
+}
+
+/* Scroll Bar ----------------------------------------------------------- */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #222; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color:  #c77617;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #222; 
+}
+
+th{
+  padding: 20px  50px 20px 30px;
+  text-align: left;
+}
+
+td{
+  padding: 20px 50px 20px 30px;
+  text-align: left;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+
+table th{
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.tabcontent{
+  text-align: center;
+  background-color: #fff;
+}
+
+.option{
+  padding: 3px 12px;
+  background-color: #c77617;
+  text-align: center;
+  color: #fff;
+}
+
+.option:hover{
+  background-color: #000;
+  color: #fff;
+}
+
+.Search{
+  padding: 7px 7px 6px 7px;
+  width: 600px;
+}
+
+.Searchbtn{
+  padding: 7px 7px 6px 7px;
+}
+
+
+.bg{
+ background-color: #fff;
+}
+
+.fill{
+  padding-bottom: 300px;
+}
+
+.des{
+  margin-top: 50px;
 }

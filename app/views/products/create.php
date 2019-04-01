@@ -1,21 +1,24 @@
-<div class="row bg">
-    <div class="container">
+<div class="bg">
         <!-- echo out the system feedback (error and success messages) -->
         <?php View::renderFeedbackMessages(); ?>
 
-        <div class="row">
-            <h1>Products</h1>
+    
+          
+        
+        <div class="container">
+              <div class="profile-text">
+            <h3>Products</h3>
         </div>
-        <div class="row">
-            <form action="<?= URL ?>/inventory/store" method="post" class="form clearfix newform"  enctype="multipart/form-data">
+        <div class="row-fluid">
+            <form  class="fill" action="<?= URL ?>/inventory/store" method="post" class="form clearfix newform"  enctype="multipart/form-data">
                 <span class="in_form">
                     <label for="product_name">Product Name</label>
                     <input type="text" name="product_name" id="product_name" placeholder="Product name" required>
                 </span>
 
                 <span class="in_form">
-                    <label for="description">Description</label>
-                    <textarea name="description" id="description" placeholder="Product description" required></textarea>
+                    <label  for="description">Description</label>
+                    <textarea  name="description" id="description" placeholder="Product description" required></textarea>
                 </span>
 
                 <span class="in_form">
@@ -35,8 +38,9 @@
                 </span>
 
                 <span class="in_form">
-                    <label for="">Product Status: </label>
+                   
                     <div class="radio-group">
+                         <label for="">Product Status: </label>
                         <label for="status-active">Active</label>
                         <input type="radio" id="status-active" name="is_public" value="1">
                         <label for="status-inactive">In-active</label>
@@ -53,4 +57,5 @@
             </form>
         </div>
     </div>
+    
 </div>

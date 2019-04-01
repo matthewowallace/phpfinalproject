@@ -1,3 +1,13 @@
+<?php 
+
+/**
+ * Because cart total will be showing on every page
+ * is is made into a global variable in start.php ln 36
+ */
+global $cart_count;
+
+?>
+
 <html lang="en">
 
 <head>
@@ -14,7 +24,7 @@
   <!-- Your custom styles (optional) -->
   <link href="<?php echo URL; ?>/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="shortcut icon" href="img/logo.png" />
+  <link rel="shortcut icon" href="<?php echo URL; ?>/img/logo.png" />
   <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
 
   <!--  CSS adopted -->
@@ -39,22 +49,22 @@
           <a href="<?php echo URL; ?>/index">Health Jam</a>
         </div>
         <nav>
-          <div class="nav-mobile"><a id="nav-toggle" href="#!"><span></span></a></div>
+          <div class="nav-mobile"><a id="nav-toggle" href="#"><span></span></a></div>
           <ul class="nav-list">
-            <li>
-              <a href="#!">About Us</a>
-            </li>
-            <li>
-              <a href="#!">Fitness Partners</a>
-            </li>
             <li><a href="<?= URL ?>/contact">Contact</a></li>
             <li><a href="<?= URL ?>/shop">Shop</a></li>
             <?php if (Session::userIsLoggedIn()) : ?>
-              <li>
-                  <a href="<?php echo URL; ?>/user/profile">Welcome <strong><?= Session::get('username') ?></strong></a>
-                    <!--  | <a href="<?php echo URL; ?>user/preferences">Settings</a> -->
-              </li>
+           <!--  <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome <strong><?= Session::get('username') ?></strong></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="<?php echo URL; ?>/user/profile">Dashboard</a></li>
+                      <li><a href="<?php echo URL; ?>/user/logout">Logout</a></li>
+                    </ul>
+              </li> -->
+              <li><a href="<?php echo URL; ?>/cart">Cart (<?= $cart_count ?>)</a></li>
+              <li><a href="<?= URL ?>/orders">Orders</a></li>
               <li><a href="<?php echo URL; ?>/user/logout">Logout</a></li>
+              <li><a href="<?php echo URL; ?>/user/profile">Welcome <strong><?= Session::get('username') ?></strong></a></li>
             <?php else: ?>
                 <li><a href="<?php echo URL; ?>/user/login">Login</a></li> 
             <?php endif; ?>

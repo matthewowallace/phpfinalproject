@@ -24,6 +24,9 @@ class Controller
      */
     public function __construct()
     {
+        // Sets the number of items in cart.
+        global $cart_count;
+
         // Always initialize a session
         Session::init();
 
@@ -31,6 +34,12 @@ class Controller
 
         // Create view object to use it inside a controller, like $this->View->render();
         $this->view = new View();
+
+        if (Session::userIsLoggedIn()) {
+            // Get items in cart since this will be showed on every view
+            $Cart = $this->model('cart');
+            $cart_count = $Cart->getCount(Session::get('id'));
+        }
     }
 
     /**

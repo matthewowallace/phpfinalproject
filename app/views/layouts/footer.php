@@ -25,6 +25,7 @@
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="<?php echo URL; ?>/js/mdb.min.js"></script>
   <script type="text/javascript" src="<?php echo URL; ?>/js/Navbar.js"></script>
+  <script type="text/javascript" src="<?php echo URL; ?>/js/script.js"></script>
 
   <script type="text/javascript" src="<?php echo URL; ?>/js/responsiveCarousel.min.js"></script>
 

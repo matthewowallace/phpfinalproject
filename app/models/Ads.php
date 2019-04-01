@@ -121,26 +121,28 @@ class Ads
      * @param  string $prod_image_path [description]
      * @return [type]                  [description]
      */
-    public function updateAd($user_id, $ad_type, $file_path="", $description, $url, $start_date, $end_date, $cost, $is_active)
+    public function updateAd($user_id, $id, $ad_type, $file_path="", $description, $url, $start_date, $end_date, $cost, $is_active)
     {
         $sql = "UPDATE `health_ads` SET `ad_type`=:ad_type,`description`=:description,`url`=:url,`start_date`=:start_date,`end_date`=:end_date,`cost`=:cost,`is_active`=:is_active ";
 
         // If image was uploaded use this query
-        if (!is_null($file_path)) {
+        if (!empty($file_path)) {
             $sql .= ',`file_path`=:file_path ';
         }
 
         $sql .= 'WHERE `user_id`=:user_id AND `id`=:id';
         
         $query = $this->db->prepare($sql);
-        $parameters = array(':user_id' => $user_id, ':ad_type' => $ad_type, ':description' => $description, ':url' => $url, ':start_date' => $start_date, ':end_date' => $end_date, ':cost' => $cost, ':is_active' => $is_active);
+        $parameters = array(':id' => $id, ':user_id' => $user_id, ':ad_type' => $ad_type, ':description' => $description, ':url' => $url, ':start_date' => $start_date, ':end_date' => $end_date, ':cost' => $cost, ':is_active' => $is_active);
 
         // If image was uploaded update path
         if (!empty($file_path)) { 
             $parameters[':file_path'] = $file_path;
         }
 
-        return $query->execute($parameters);
+        $result = $query->execute($parameters);
+        // die($result);
+        return $result;
     }
 
      /**

@@ -106,15 +106,17 @@ class Product
 
     public function updateProduct($user_id, $id, $product_name, $description, $category_id, $is_public, $cost, $prod_image_path="")
     {
-        $sql = "UPDATE `products` SET `product_name` = :product_name, `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public WHERE user_id=:user_id AND id=:id";
+        $sql = "UPDATE `products` SET `product_name`=:product_name, `description`=:description,`category_id`=:category_id,`cost`=:cost,`is_public`=:is_public ";
 
         // If image was uploaded use this query
         if (!empty($prod_image_path)) {
-            $sql = "UPDATE `products` SET `product_name` = :product_name, `description`= :description,`category_id`= :category_id,`cost`=:cost,`is_public`=:is_public, `prod_image_path`=:prod_image_path WHERE user_id=:user_id AND id=:id";
+            $sql .= ", `prod_image_path`=:prod_image_path ";
         }
+
+        $sql .= "WHERE user_id=:user_id AND id=:id";
         
         $query = $this->db->prepare($sql);
-        $parameters = array(':id' => $id, ':user_id' => $user_id, ':description' => $description, ':category_id' => $category_id, ':cost' => $cost, ':is_public' => $is_public);
+        $parameters = array(':id' => $id, ':user_id' => $user_id, ':product_name' => $product_name, ':description' => $description, ':category_id' => $category_id, ':cost' => $cost, ':is_public' => $is_public);
 
         // If image was uploaded update path
         if (!empty($prod_image_path)) { 
@@ -123,7 +125,8 @@ class Product
         // useful for debugging: you can see the SQL behind above construction by using:
         // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 
-        return $query->execute($parameters);
+        $query->execute($parameters);
+        // die(var_dump($_POST));
     }
 
      /**
