@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 28, 2019 at 06:32 PM
+-- Generation Time: Apr 01, 2019 at 09:39 AM
 -- Server version: 10.1.37-MariaDB-0+deb9u1
 -- PHP Version: 7.0.33-0+deb9u3
 
@@ -46,16 +46,6 @@ CREATE TABLE `category` (
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`id`, `category_name`, `created_at`, `updated_at`) VALUES
-(1, 'Suppliment', '2019-03-05 03:38:03', '2019-03-18 02:28:47'),
-(2, 'Fitness Gear', '2019-03-05 03:38:03', '2019-03-18 02:29:00'),
-(3, 'Health Event', '2019-03-18 02:29:31', '2019-03-18 02:29:31'),
-(4, 'Gym Subscription', '2019-03-18 02:29:31', '2019-03-18 02:29:31');
-
 -- --------------------------------------------------------
 
 --
@@ -80,11 +70,12 @@ CREATE TABLE `contact_us` (
 CREATE TABLE `credit_cards` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `card_type` varchar(50) NOT NULL,
-  `expiration_date` date NOT NULL,
-  `ccv_code` int(11) NOT NULL,
-  `last_four_digits` int(11) NOT NULL,
   `holder_name` varchar(50) NOT NULL,
+  `card_number` varchar(20) NOT NULL,
+  `card_type` varchar(50) NOT NULL,
+  `expiry_month` varchar(2) NOT NULL,
+  `expiry_year` varchar(4) NOT NULL,
+  `cvv_code` int(11) NOT NULL,
   `date_added` datetime NOT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -122,9 +113,12 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `order_date` datetime NOT NULL,
-  `cost` decimal(10,0) NOT NULL,
+  `order_date` date NOT NULL,
+  `cost` decimal(10,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total` decimal(11,2) NOT NULL,
   `card_id` int(11) NOT NULL,
+  `cart_token` varchar(191) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -145,6 +139,24 @@ CREATE TABLE `products` (
   `category_id` int(11) DEFAULT NULL,
   `is_public` tinyint(4) NOT NULL DEFAULT '0',
   `cost` decimal(10,0) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shopping_cart`
+--
+
+CREATE TABLE `shopping_cart` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `date_added` date NOT NULL,
+  `cost` decimal(11,2) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total` decimal(11,2) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -243,6 +255,14 @@ ALTER TABLE `products`
   ADD KEY `brand` (`brand`);
 
 --
+-- Indexes for table `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`,`product_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -281,22 +301,27 @@ ALTER TABLE `contact_us`
 -- AUTO_INCREMENT for table `credit_cards`
 --
 ALTER TABLE `credit_cards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `health_ads`
 --
 ALTER TABLE `health_ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -332,6 +357,13 @@ ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`brand`) REFERENCES `brand` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  ADD CONSTRAINT `shopping_cart_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `shopping_cart_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_preference`
