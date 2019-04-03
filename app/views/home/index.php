@@ -133,22 +133,27 @@
         </div> 
     </section>
 
+<section class="promotion">
+  <div class="slider">
+  <input class="slider__nav" type="radio" name="slider" title="slide1" checked="checked"/>
+  <input class="slider__nav" type="radio" name="slider" title="slide2"/>
+  <input class="slider__nav" type="radio" name="slider" title="slide3"/>
+  <input class="slider__nav" type="radio" name="slider" title="slide4"/>
+  <div class="slider__inner">
 
-<section>
-  <div class="container-fluid">
-    <div id="fitslider">
-  <div id="images">
-    <?php foreach ($this->ads as $ad) : ?>
+      <?php foreach ($this->ads as $ad) : ?>
+        <div class="slider__contents">
       <?php if ($ad->ad_type == 'Image') : ?>
         <img  src="<?= $ad->file_path?>" alt="">
       <?php else: ?>
         <video src="<?= $ad->file_path?>" controls></video>
       <?php endif; ?>
+    </div>
     <?php endforeach; ?>
-  </div>
-</div>
+
 </div>
 </section>
+
     <div id="feature">
             <div class="cover">
                <div>
