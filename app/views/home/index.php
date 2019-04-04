@@ -135,10 +135,10 @@
 
 <section class="promotion">
   <div class="slider">
-  <input class="slider__nav" type="radio" name="slider" title="slide1" checked="checked"/>
-  <input class="slider__nav" type="radio" name="slider" title="slide2"/>
-  <input class="slider__nav" type="radio" name="slider" title="slide3"/>
-  <input class="slider__nav" type="radio" name="slider" title="slide4"/>
+    <?php foreach ($this->ads as $ad) : ?>
+      <input class="slider__nav" type="radio" name="slider" title="slide<?= $ad->id?>" checked="checked"/>
+    <?php endforeach; ?>
+
   <div class="slider__inner">
 
       <?php foreach ($this->ads as $ad) : ?>
