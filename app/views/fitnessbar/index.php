@@ -28,7 +28,13 @@
             </tr>
             <?php foreach ($this->ads as $ad) : ?>
                 <tr>
-                    <td><img class="prod-img" src="<?= $ad->file_path ?>" alt=""></td>
+                    <td>
+                        <?php if ($ad->ad_type == 'Image') : ?>
+                          <img class="prod-img" src="<?= $ad->file_path?>" alt="">
+                        <?php else: ?>
+                          <video class="prod-img" src="<?= $ad->file_path?>" controls></video>
+                        <?php endif; ?>
+                    </td>
                     <td><?php echo htmlspecialchars($ad->id, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($ad->description, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($ad->start_date, ENT_QUOTES, 'UTF-8'); ?></td>

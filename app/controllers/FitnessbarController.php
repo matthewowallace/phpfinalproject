@@ -52,9 +52,16 @@ class FitnessbarController extends Controller
      */
     public function store() {
 
+        // TODO:
+        // Update query with  status
+        // Fix media type saved in database
+        // Prevent image path override when updating and no media is selected
+        // Add gyms to database
+        // User profile pic
+        
         // if we have POST data to create a new vehicle_request entry
         if (isset($_POST["submit_add_ad"])) {
-            
+                
             // $prod_image_path = filter_var($_POST['prod_image_path'], FILTER_SANITIZE_STRING);
             $user_id = Session::get('id');
             $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
@@ -63,10 +70,11 @@ class FitnessbarController extends Controller
             $start_date = filter_var($_POST['start_date'], FILTER_SANITIZE_STRING);
             $end_date = filter_var($_POST['end_date'], FILTER_SANITIZE_STRING);
             $is_active = filter_var($_POST['is_active'], FILTER_SANITIZE_STRING);
-            $file_path = '';
+            $url_path = '';
             $ad_type = '';
 
             if (isset($_FILES['image']['name'])) {
+
                 $errors= array();
                 $file_name = $_FILES['image']['name'];
                 $file_size =$_FILES['image']['size'];
@@ -91,23 +99,28 @@ class FitnessbarController extends Controller
                 }
                 
                 if (empty($errors) == true) {
-                    $file_path = URL . '/img/' . $file_name;
-                    if (move_uploaded_file($file_tmp, ASSET_ROOT . '/img/' . $file_name)) {
-                        echo "File is valid, and was successfully uploaded.\n";
+                    $uid = uniqid();
+                    $url_path = URL . '/img/' . $uid . $file_name;
+                    $file_path = ASSET_ROOT . '/img/' . $uid . $file_name;
+
+                    if (move_uploaded_file($file_tmp, $file_path)) {
+                        Session::add('File was successfully uploaded.\n');
                     } else {
-                        die("Upload failed");
+                        Session::add('feedback_negative', 'Upload failed. Please try again.');
+                        // return;
                     }
                 } else {
-                    print_r($errors);
+                    Session::add('feedback_negative', $errors);
+                    // print_r($errors);
+                    // return;
                 }
             }
 
             $Ad = $this->model('ads');
-            $ad = $Ad->addAd($user_id, $ad_type, $file_path, $description, $url, $start_date, $end_date, $cost, $is_active);
-
+            $ad = $Ad->addAd($user_id, $ad_type, $url_path, $description, $url, $start_date, $end_date, $cost, $is_active);
             // TODO: Create error page for displaying messages and use sessions for showing messages.
             if (!$ad) {
-                die('Error saving ad');
+                Session::add('feedback_negative', 'Error saving promotion. Please try again.');
             }
         }
 
