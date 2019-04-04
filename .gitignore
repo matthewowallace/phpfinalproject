@@ -4,7 +4,7 @@ vendor
 Vagrantfile
 /app/cache
 .DS_Store
-.mp4
-.jpg
-.jpeg
-.png
+*.mp4
+*.jpg
+*.jpeg
+*.png
