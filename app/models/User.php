@@ -17,6 +17,26 @@ class User
     }
 
     /**
+     * Get all users.
+     * @return [type] [description]
+     */
+    public function getUsers()
+    {
+        $sql = "SELECT `id`, `username`, `first_name`, `last_name`, `password`, `email`, `is_admin`, `is_contributer`, `subscription_plan`, `is_subscriber`, `subscription_start`, `subscription_end`, `created_at`, `updated_at` FROM `users`";
+        $query = $this->db->prepare($sql);
+
+        $query->execute();
+
+        if (!$query) {
+            Session::add('feedback_negative', 'An error occured. Please try again.');
+            return false;
+        }
+
+        // fetch() is the PDO method that get exactly one result
+        return $query->fetchAll();
+    }
+
+    /**
      * Add a user to database.
      * 
      * @param string $username
@@ -184,7 +204,7 @@ class User
     {
         Session::init();
 
-        // remove old and regenerate session ID.
+        // Remove old and regenerate session ID.
         // It's important to regenerate session on sensitive actions,
         // and to avoid fixated session.
         // e.g. when a user logs in

@@ -44,4 +44,34 @@ class View
     {
         require APP . 'views/layouts/adminbar.php';
     }
+
+    /**
+     * Render views for admin.
+     * @param  [type] $filename [description]
+     * @param  [type] $data     [description]
+     * @return [type]           [description]
+     */
+    public function render_admin($filename, $data = null)
+    {        
+        // Prepare $data to be accessed in the view.
+        if ($data) {
+            foreach ($data as $key => $value) {
+                $this->{$key} = $value;
+            }
+        }
+        
+        require APP . 'views/layouts/admin_header.php';
+        require APP . 'views/' . $filename . '.php';
+        require APP . 'views/layouts/admin_footer.php';
+    }
+
+    /**
+     * Admin sidebar
+     * @param  [type] $view [description]
+     * @return [type]       [description]
+     */
+    public static function renderSideBar($view='')
+    {
+        require APP . 'views/layouts/admin_sidebar.php';
+    }
 } 
