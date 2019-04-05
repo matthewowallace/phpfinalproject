@@ -1637,18 +1637,44 @@ width:35px;
   border: 1px solid #ccc;
 }
 
+.in_form{
+  text-align: center;
+}
+
+.fill span{
+  margin-bottom: 20px;
+}
+
+.in_form textarea{
+  width: 400px;
+  height: 200px;
+}
+
 .in_form input{
   border: none;
   border-bottom: 1px solid #c77617;
+  width: 30%;
 }
 
 .in_form select{
    border: none;
   border-bottom: 1px solid #ccc;
+  width: 30%;
+}
+
+.fill{
+    -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+   -webkit-box-shadow: 0 3px 10px -2px rgba(0,0,0,0.8);
+          box-shadow: 0 3px 10px -2px rgba(0,0,0,0.8);
+  border-radius: 3px;
+  margin-left: 300px;
+  margin-right: 300px;
 }
 
 .f3 hr{
-  width: 80%;
+  width: 100%;
   border-bottom: 1px  solid #ccc; 
 }
 
@@ -1932,10 +1958,13 @@ table th{
 
 .bg{
  background-color: #fff;
+ text-align: center;
+ padding-bottom: 100px;
 }
 
-.fill{
-  padding-bottom: 300px;
+.form-center{
+  text-align: center;
+  display: inline-block;
 }
 
 .des{
