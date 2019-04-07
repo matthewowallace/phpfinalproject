@@ -765,8 +765,9 @@ img { border: 0; max-width: 100%; }
 
 #sendmessage {
     color: green;
-    border: 1px solid green;
-    display: none;
+    /*border: 1px solid green;*/
+    display: block;
+    /*background-color: #fff;*/
     text-align: center;
     padding: 15px;
     font-weight: 600;
