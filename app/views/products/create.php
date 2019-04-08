@@ -58,4 +58,3 @@
 
 </div>
 </div>
-<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
