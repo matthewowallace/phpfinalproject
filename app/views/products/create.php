@@ -17,12 +17,7 @@
     </span>
     <br>
     <br>
-    <div class="form-center">
-        <span class="in_form">
-            <label  for="description">Description</label>
-            <textarea  name="description" id="description" placeholder="Product description" required></textarea>
-        </span>
-    </div>
+    <textarea rows="4" cols="50" name="description" id="description" placeholder="Product description" form="usrform"></textarea>
     <br>
     <br>
     <span class="in_form">
@@ -63,17 +58,4 @@
 
 </div>
 </div>
-
-<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
-<script src="scripts/datatables/jquery.dataTables.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.datatable-1').dataTable();
-        $('.dataTables_paginate').addClass("btn-group datatable-pagination");
-        $('.dataTables_paginate > a').wrapInner('<span />');
-        $('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
-        $('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
-    } );
-</script>
-<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
 <script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
