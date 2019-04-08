@@ -4,6 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Health Jam | Admin</title>
+  <!-- <link type="text/css" href="<?php echo URL; ?>/css/bootstrap.min.css" rel="stylesheet"> -->
   <link type="text/css" href="<?php echo URL; ?>/css/admin.bootstrap.min.css" rel="stylesheet">
   <link type="text/css" href="<?php echo URL; ?>/css/bootstrap-responsive.min.css" rel="stylesheet">
   <link type="text/css" href="<?php echo URL; ?>/css/theme.css" rel="stylesheet">
@@ -28,7 +29,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="change-password.php">Change Password</a></li>
                             <li class="divider"></li>
-                            <li><a href="logout.php">Logout</a></li>
+                            <li><a href="<?php echo URL; ?>/user/logout">Logout</a></li>
                         </ul>
                     </li>
                 </ul>

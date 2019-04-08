@@ -17,13 +17,13 @@ class Product
     /**
      * Gets all products from database
      */
-    public function getAllProducts($user_id=null)
+    public function getAllProducts($user_id=null, $active=false)
     {
         $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`product_name`, `products`.`description`, `products`.`brand`, `users`.`username`, `products`.`user_id` as seller_id, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM  `products`
         LEFT JOIN users ON `products`.`user_id`=`users`.`id`
         LEFT JOIN category ON `products`.`category_id`=`category`.`id`
         ";
-        
+
         // TODO: Query for the user that added the product
         $query = $this->db->prepare($sql);
 
@@ -144,7 +144,7 @@ class Product
         // useful for debugging: you can see the SQL behind above construction by using:
         // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
 
-        $query->execute($parameters);
+        return $query->execute($parameters);
     }
 
     public function getAllCategories()
@@ -157,6 +157,19 @@ class Product
         return $query->fetchAll();
     }
 
+    public function addCategory($category_name)
+    {
+        $sql = "INSERT INTO category (category_name) VALUES (:category_name)";
+        $query = $this->db->prepare($sql);
+        return $query->execute([':category_name' => $category_name]);
+    }
+
+    public function deleteCategory($id)
+    {
+        $sql = "DELETE from category WHERE id=:id";
+        $query = $this->db->prepare($sql);
+        return $query->execute([':id' => $id]);
+    }
 
     public function getAllBrands()
     {
@@ -166,4 +179,20 @@ class Product
 
         return $query->fetchAll();
     }
+
+
+    public function addBrand($brand_name)
+    {
+        $sql = "INSERT INTO brand (brand_name) VALUES (:brand_name)";
+        $query = $this->db->prepare($sql);
+        return $query->execute([':brand_name' => $brand_name]);
+    }
+
+    public function deleteBrand($id)
+    {
+        $sql = "DELETE from brand WHERE id=:id";
+        $query = $this->db->prepare($sql);
+        return $query->execute([':id' => $id]);
+    }
+
 }

@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $user = $this->model('user');
-
+        
         $this->view->render('home/index');
     }
 
@@ -65,10 +65,10 @@ class UserController extends Controller
                 $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
                 $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
                 $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);            
-                // $is_subscriber = filter_var($_POST['is_subscriber'], FILTER_SANITIZE_STRING);
+                $is_subscriber = 1; // filter_var($_POST['is_subscriber'], FILTER_SANITIZE_STRING);
 
-                // Save user if error return false
-                $sucessful = $User->addUser($username, $first_name, $last_name, $email, $password_hash);
+                // Save user if error return false. Set contributer to 1
+                $sucessful = $User->addUser($username, $first_name, $last_name, $email, $password_hash, $is_subscriber);
             }            
 
             if ($sucessful) {
@@ -137,10 +137,18 @@ class UserController extends Controller
     {
         $User = $this->model('user');
         $user = $User->getUserbyEmail(Session::get('email')); // getting all users
+        $Order = $this->model('order');
+        $orders = $Order->getAllOrders(SESSION::get('id'), true); // Limit to one
+        $myorders = array();
+
+        foreach ($orders as $order) {
+            $myorders[$order->order_date][] = $order;
+        }
 
         // load views. within the views we can echo out $products easily
         $this->view->render('auth/profile', [
-            'user' => $user
+            'user' => $user,
+            'orders' => $myorders,
         ]);
     }
 
@@ -208,6 +216,7 @@ class UserController extends Controller
     /**
      * Show agreement form to upgrade account.
      * 
+     * @method get
      * @return
      */
     public function upgrade()
@@ -217,7 +226,7 @@ class UserController extends Controller
 
     /**
      * Update account to contributer.
-     * @return [type] [description]
+     * @method post
      */
     public function agree() 
     {
@@ -250,6 +259,70 @@ class UserController extends Controller
         // Redirect to profile
         Redirect::to('user/profile');
         exit();
+    }
+
+    /**
+     * Change the profile image
+     *
+     * @method get
+     */
+    public function image()
+    {
+       $this->view->render('auth/change_profile'); 
+    }
+
+    /**
+     * Save profile image
+     * @method post
+     */
+    public function change()
+    {
+        if (isset($_POST["submit_change_profile"])) {
+            
+            $user_id = Session::get('id');
+            $image_path = '';
+
+            if (isset($_FILES['image'])){
+                $errors= array();
+                $file_name = $_FILES['image']['name'];
+                $file_size =$_FILES['image']['size'];
+                $file_tmp =$_FILES['image']['tmp_name'];
+                $file_type=$_FILES['image']['type'];
+                $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+                
+                $extensions= array("jpeg","jpg","png");
+                
+                if (in_array($file_ext, $extensions) === false){
+                    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+                }
+                
+                // if ($file_size > 2097152){
+                //     $errors[]='File size must be less then than 2 MB';
+                // }
+                
+                if (empty($errors) == true) {
+                    $image_path = URL . '/uploads/' . $file_name;
+                    if (move_uploaded_file($file_tmp, ASSET_ROOT . '/uploads/' . $file_name)) {
+                        echo "File is valid, and was successfully uploaded.\n";
+                    } else {
+                        Session::add('feedback_negative', 'Upload failed');
+                    }
+                }else{
+                    Session::add('feedback_negative', $errors);
+                }
+            }
+
+            $User = $this->model('user');
+            $product = $User->updateProfile($user_id, $image_path);
+
+            // TODO: Create error page for displaying messages and use sessions for showing messages.
+            if (!$product) {
+                Session::add('feedback_negative', 'Error saving user profile');
+            }
+        }
+
+        // where to go after vehicle_request has been added
+        Redirect::to('user/profile');
     }
 
     /**

@@ -17,7 +17,7 @@ class Order
     /**
      * Gets all orders from database
      */
-    public function getAllOrders($user_id=null)
+    public function getAllOrders($user_id=null, $limit=null)
     {
         $sql = "SELECT `orders`.`id`, `products`.`product_name`, `products`.`prod_image_path`, `orders`.`order_date`, `orders`.`cost`, `quantity`, `total`, `orders`.`cart_token`, `users`.`username`, `orders`.`cart_token`, `orders`.`created_at`
         FROM `orders`
@@ -26,6 +26,10 @@ class Order
         WHERE `orders`.`user_id`=:user_id
         ";
         
+        if ($limit) {
+            $sql .= ' LIMIT 3';
+        }
+
         // TODO: Query for the user that added the product
         $query = $this->db->prepare($sql);
 

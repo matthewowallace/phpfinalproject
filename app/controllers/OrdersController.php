@@ -13,8 +13,8 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $User = $this->model('order');
-        $orders = $User->getAllOrders(SESSION::get('id'));
+        $Order = $this->model('order');
+        $orders = $Order->getAllOrders(SESSION::get('id'));
         $myorders = array();
 
         foreach ($orders as $order) {

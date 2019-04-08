@@ -12,6 +12,7 @@ class Redirect {
      */
     public static function to($path) {
         header('location: ' . URL . (substr($path, -1) == '/' ? '' : '/') . $path);
+        exit();
     }
 
      /**
@@ -20,5 +21,6 @@ class Redirect {
     public static function home()
     {
         header("location: " . URL);
+        exit();
     }
 }

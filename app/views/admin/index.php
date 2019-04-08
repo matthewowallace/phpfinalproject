@@ -28,14 +28,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>First name</th>
-                                        <th>Last name</th>
+                                        <th>Username</th>
+                                        <th>Name</th>
                                         <th>Email</th>
-                                        <th>Is Admin</th>
-                                        <th>Is Contributer</th>
-                                        <th>Is Subscriber</th>
-                                        <th>Subscription Start</th>
-                                        <th>Subscription End</th>
+                                        <th>Roles</th>
+                                        <th>Subscription</th>
                                         <th>&nbsp;</th>
                                     </tr>
                                 </thead>
@@ -43,20 +40,24 @@
                                 <?php foreach ($this->users as $user) : ?>
                                     <tr>
                                         <td><?php echo htmlspecialchars($user->id, ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo htmlspecialchars($user->first_name, ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo htmlspecialchars($user->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td><?php echo htmlspecialchars($user->username, ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td><?php echo htmlspecialchars($user->first_name, ENT_QUOTES, 'UTF-8') . ' ' . htmlspecialchars($user->last_name, ENT_QUOTES, 'UTF-8'); ?></td>
                                         <td><?php echo htmlspecialchars($user->email, ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo $user->is_admin ? 'Yes' : 'No'; ?></td>
-                                        <td><?php echo $user->is_contributer ? 'Yes' : 'No'; ?></td>
-                                        <td><?php echo $user->is_subscriber ? 'Yes' : 'No'; ?></td>
-                                        <td><?php echo htmlspecialchars($user->subscription_start, ENT_QUOTES, 'UTF-8'); ?></td>
-                                        <td><?php echo htmlspecialchars($user->subscription_end, ENT_QUOTES, 'UTF-8'); ?></td>
+                                        <td>
+                                            <?php echo $user->is_admin ? 'Admin</br>' : ''; ?>
+                                            <?php echo $user->is_contributer ? 'Contributer</br>' : ''; ?>
+                                            <?php echo $user->is_subscriber ? 'Subscriber</br>' : ''; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo 'Start: ' . htmlspecialchars($user->subscription_start, ENT_QUOTES, 'UTF-8') . '</br>'; ?>
+                                            <?php echo 'Ends: ' . htmlspecialchars($user->subscription_end, ENT_QUOTES, 'UTF-8'); ?>
+                                        </td>
                                         <td class="edit">
-                                            <?php $url = URL . '/inventory/edit/' . $user->id; ?>
+                                            <?php $url = URL . '/admin/users/edit/' . $user->id; ?>
                                             <a href="<?= $url ?>" class="option">Edit
                                                
                                             </a>
-                                            <form  method="POST" action="<?php echo URL . '/inventory/delete/' . htmlspecialchars($user->id, ENT_QUOTES, 'UTF-8'); ?>" accept-charset="UTF-8" style="display: inline-block;" onsubmit="return confirm('Are you sure?');">
+                                            <form  method="POST" action="<?php echo URL . '/admin/users/delete/' . htmlspecialchars($user->id, ENT_QUOTES, 'UTF-8'); ?>" accept-charset="UTF-8" style="display: inline-block;" onsubmit="return confirm('Are you sure?');">
                                                 <input name="_method" value="DELETE" type="hidden">
                                                 <input value="Delete" type="submit" name="submit_delete_product" >
                                             </form>
