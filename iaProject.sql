@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 01, 2019 at 09:39 AM
+-- Generation Time: Apr 08, 2019 at 09:34 AM
 -- Server version: 10.1.37-MariaDB-0+deb9u1
 -- PHP Version: 7.0.33-0+deb9u3
 
@@ -176,13 +176,21 @@ CREATE TABLE `users` (
   `email` varchar(191) NOT NULL,
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `is_contributer` tinyint(1) NOT NULL DEFAULT '0',
+  `is_subscriber` tinyint(1) NOT NULL DEFAULT '1',
   `subscription_plan` varchar(10) DEFAULT NULL,
-  `is_subscriber` tinyint(1) NOT NULL DEFAULT '0',
   `subscription_start` datetime DEFAULT NULL,
   `subscription_end` datetime DEFAULT NULL,
+  `image_path` varchar(191) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `password`, `email`, `is_admin`, `is_contributer`, `is_subscriber`, `subscription_plan`, `subscription_start`, `subscription_end`, `image_path`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '', '', '$2y$10$9S7xlNqwDZgBtF081RJSVOwqJrmf.r8YI9uOyUJRNNkdNQE2zlnLC', 'admin@mail.com', 1, 1, 1, NULL, NULL, NULL, '', '2019-04-08 08:56:09', '2019-04-08 08:57:07'),
 
 -- --------------------------------------------------------
 
@@ -286,17 +294,17 @@ ALTER TABLE `user_preference`
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `contact_us`
 --
 ALTER TABLE `contact_us`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `credit_cards`
 --
@@ -306,12 +314,12 @@ ALTER TABLE `credit_cards`
 -- AUTO_INCREMENT for table `health_ads`
 --
 ALTER TABLE `health_ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `products`
 --
@@ -321,12 +329,12 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `shopping_cart`
 --
 ALTER TABLE `shopping_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user_preference`
 --
@@ -354,7 +362,7 @@ ALTER TABLE `orders`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`brand`) REFERENCES `brand` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
