@@ -97,17 +97,17 @@ class AdminController extends Controller
                 $is_contributer = isset($_POST['is_contributer']) ? (int)filter_var($_POST['is_contributer'], FILTER_SANITIZE_STRING) : 0;
                 $is_admin = isset($_POST['is_admin']) ? (int)filter_var($_POST['is_admin'], FILTER_SANITIZE_STRING) : 0;
                 
-                if ($action == 'store') {
+                if ($action == 'add') {
                     // Save user if error return false
-                    $sucessful = $User->addUser($username, $first_name, $last_name, $email, $password_hash, $is_subscriber, $is_contributer, $is_admin, $image_path);
+                    $successful = $User->addUser($username, $first_name, $last_name, $email, $password_hash, $is_subscriber, $is_contributer, $is_admin, $image_path);
                 }
 
                 if ($action == 'update') {
-                    $sucessful = $User->updateUser($user_id, $username, $first_name, $last_name, $email, $password_hash, $is_subscriber, $is_contributer, $is_admin, $image_path);
+                    $successful = $User->updateUser($user_id, $username, $first_name, $last_name, $email, $password_hash, $is_subscriber, $is_contributer, $is_admin, $image_path);
                 }
             }
 
-            if ($sucessful) {
+            if ($successful) {
                 Redirect::to('admin/users');
             } else {
                 Redirect::to('admin/users/add');
