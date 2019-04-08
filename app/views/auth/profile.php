@@ -1,11 +1,11 @@
 <div class="reg-title">
     <!-- echo out the system feedback (error and success messages) -->
     <?php View::renderFeedbackMessages(); ?>
-    <h2>SIGN UP</h2>
+    <h2>Welcome</h2>
 </div>
 
 <!-- echo out the admin bar -->
-<?php View::renderAdminBar('profile'); ?>
+<?= $this->show_bar ? View::renderAdminBar('profile') : ''; ?>
 
 <div id="New-Item" class="tabcontent" style="display: block;">
     <div class="container">

@@ -26,6 +26,14 @@ class OrdersController extends Controller
         // die();
         $this->view->render('orders/index', [
             'orders' => $myorders,
+            'show_bar' => $this->show_bar(),
         ]);
+    }
+
+    public function show_bar() {
+        if (Session::userIsLoggedIn() && $this->is_contributer(Session::get('id'))) {
+            return true;
+        }
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 <div>
     <!-- echo out the admin bar -->
-    <?php View::renderAdminBar('inventory'); ?>
+    <?= $this->show_bar ? View::renderAdminBar('inventory') : ''; ?>
 
     <!-- echo out the system feedback (error and success messages) -->
     <?php View::renderFeedbackMessages(); ?>

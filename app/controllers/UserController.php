@@ -15,7 +15,9 @@ class UserController extends Controller
     {
         $user = $this->model('user');
         
-        $this->view->render('home/index');
+        $this->view->render('home/index', [
+            'show_bar' => $this->show_bar(),
+        ]);
     }
 
     /**
@@ -149,6 +151,7 @@ class UserController extends Controller
         $this->view->render('auth/profile', [
             'user' => $user,
             'orders' => $myorders,
+            'show_bar' => $this->show_bar(),
         ]);
     }
 
@@ -337,5 +340,12 @@ class UserController extends Controller
 
         Redirect::home();
         exit();
+    }
+
+    public function show_bar() {
+        if (Session::userIsLoggedIn() && $this->is_contributer(Session::get('id'))) {
+            return true;
+        }
+        return false;
     }
 }

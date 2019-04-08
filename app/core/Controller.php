@@ -18,6 +18,8 @@ class Controller
      */
     public $view;
 
+    public $Perm;
+
     /**
      * Construct the (base) controller. This happens when a real controller is constructed, like in
      * the constructor of IndexController when it says: parent::__construct();
@@ -30,6 +32,9 @@ class Controller
         // Always initialize a session
         Session::init();
 
+        // NOTE: Create a new permission object.
+        // $this->Permission = new Permission();
+
         $this->openDatabaseConnection();
 
         // Create view object to use it inside a controller, like $this->View->render();
@@ -40,6 +45,8 @@ class Controller
             $Cart = $this->model('cart');
             $cart_count = $Cart->getCount(Session::get('id'));
         }
+
+        $Perm = $this->model('permission');
     }
 
     /**
@@ -70,5 +77,17 @@ class Controller
         require_once '../app/models/' . ucfirst($model) . '.php';
 
         return new $model($this->db);
+    }
+
+    public function is_admin($user_id)
+    {
+        $Permission = $this->model('permission');
+        return $Permission->is_admin($user_id);
+    }
+
+    public function is_contributer($user_id)
+    {
+        $Permission = $this->model('permission');
+        return $Permission->is_contributer($user_id);
     }
 }

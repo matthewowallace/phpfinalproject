@@ -1,6 +1,6 @@
 <div>
     <!-- echo out the admin bar -->
-    <?php View::renderAdminBar('bar'); ?>
+    <?= $this->show_bar ? View::renderAdminBar('bar') : ''; ?>
 
     <!-- echo out the system feedback (error and success messages) -->
     <?php View::renderFeedbackMessages(); ?>

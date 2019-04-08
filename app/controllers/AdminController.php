@@ -13,6 +13,10 @@ class AdminController extends Controller
      */
     public function index()
     {
+        if (!Session::userIsLoggedIn() && !$this->is_admin(Session::get('id'))) {
+            Redirect::to('user/login');
+        }
+
         $User = $this->model('user');
         $users = $User->getUsers();
 
@@ -23,6 +27,10 @@ class AdminController extends Controller
 
     public function users($action=null, $id=null)
     {
+        if (!Session::userIsLoggedIn() && !$this->is_admin(Session::get('id'))) {
+            Redirect::to('user/login');
+        }
+
         $User = $this->model('user');
         
         if (isset($_POST['submit_add_user_admin'])) {
@@ -132,6 +140,10 @@ class AdminController extends Controller
 
     public function contacts()
     {
+        if (!Session::userIsLoggedIn() && !$this->is_admin(Session::get('id'))) {
+            Redirect::to('user/login');
+        }
+
         $Contacts = $this->model('contact');
         $contacts = $Contacts->getContacts();
 
@@ -142,6 +154,10 @@ class AdminController extends Controller
 
     public function category($action=null, $id=null)
     {
+        if (!Session::userIsLoggedIn() && !$this->is_admin(Session::get('id'))) {
+            Redirect::to('user/login');
+        }
+
         $Category = $this->model('product');
         if ($action == 'delete' && $id) {
             $Category->deleteCategory($id);
@@ -163,6 +179,10 @@ class AdminController extends Controller
 
     public function brand($action=null, $id=null)
     {
+        if (!Session::userIsLoggedIn() && !$this->is_admin(Session::get('id'))) {
+            Redirect::to('user/login');
+        }
+        
         $Brand = $this->model('product');
         if ($action == 'delete' && $id) {
             $Brand->deleteBrand($id);

@@ -197,7 +197,7 @@ class User
     {
         $sql = "SELECT id, first_name, last_name, username, email, password
                 FROM users
-                WHERE (username = :username || email = :username)
+                WHERE (username=:username || email=:username)
                 LIMIT 1";
         
         // Executes query.
@@ -227,7 +227,6 @@ class User
     public function login($username, $password) 
     {
         $user = $this->getUserByUsername($username);
-
         // Credentials were not authenticated.
         if (!$user) {
             Session::add('feedback_negative', 'Email or password incorrect');

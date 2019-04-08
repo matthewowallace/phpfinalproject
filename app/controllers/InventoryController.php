@@ -30,7 +30,8 @@ class InventoryController extends Controller
         // load views. within the views we can echo out $products easily
         $this->view->render('products/index', [
             'products' => $products,
-            'q' => $q
+            'q' => $q,
+            'show_bar' => $this->show_bar(),
         ]);
     }
 
@@ -209,5 +210,12 @@ class InventoryController extends Controller
 
         // where to go after vehicle_request has been added
         Redirect::to('inventory/index'); 
+    }
+
+    public function show_bar() {
+        if (Session::userIsLoggedIn() && $this->is_contributer(Session::get('id'))) {
+            return true;
+        }
+        return false;
     }
 }
