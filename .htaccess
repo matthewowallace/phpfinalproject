@@ -1,1 +1,3 @@
-Options -MultiViews
+# Route to /public.
+RewriteEngine on
+RewriteRule ^(.*) public/$1 [L]

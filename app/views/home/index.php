@@ -8,53 +8,53 @@
    <a href="#feature"><h1 class="animated pulse">CLICK TO GET FIT</h1></a>
     </div>
 <div class="container">    
-<div class="row">
-  <div id="carousel">
-  <div class="btn-bar">
-    <div id="buttons"><a id="prev" href="#"><i class="fa fa-angle-double-left"></i></a><a id="next" href="#"><i class="fa fa-angle-double-right"></i></a> </div></div>
-    <div id="slides">
-        <ul>
+  <div class="row">
+    <div id="carousel">
+      <div class="btn-bar">
+        <div id="buttons"><a id="prev" href="#"><i class="fa fa-angle-double-left"></i></a><a id="next" href="#"><i class="fa fa-angle-double-right"></i></a> </div></div>
+        <div id="slides">
+          <ul>
             <li class="slide">
-                <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span> Eat good live good exercise right <span class="quote-marks">"</span>
+              <div class="quoteContainer">
+                <p class="quote-phrase"><span class="quote-marks">"</span> Eat good live good exercise right <span class="quote-marks">"</span>
 
-                    </p>
-                </div>
+                </p>
+              </div>
             </li>
             <li class="slide">
-                <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span>
-                     Be an inspiration; join the gym nation
-                    <span class="quote-marks">"</span>
+              <div class="quoteContainer">
+                <p class="quote-phrase"><span class="quote-marks">"</span>
+                  Be an inspiration; join the gym nation
+                  <span class="quote-marks">"</span>
 
-                    </p>
-                </div>
+                </p>
+              </div>
             </li>
             <li class="slide">
-                <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span>If you want to get slim; join the gym<span class="quote-marks">"</span>
+              <div class="quoteContainer">
+                <p class="quote-phrase"><span class="quote-marks">"</span>If you want to get slim; join the gym<span class="quote-marks">"</span>
 
-                    </p>
-                </div>
+                </p>
+              </div>
             </li>
             <li class="slide">
-                <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span>  Let FitSeeker be your guide in the pursuit of Good Health<span class="quote-marks">"</span>
+              <div class="quoteContainer">
+                <p class="quote-phrase"><span class="quote-marks">"</span>  Let FitSeeker be your guide in the pursuit of Good Health<span class="quote-marks">"</span>
 
-                    </p>
-                </div>
+                </p>
+              </div>
             </li>
             <li class="slide">
-                <div class="quoteContainer">
-                    <p class="quote-phrase"><span class="quote-marks">"</span> Maintain that body you live in.<span class="quote-marks">"</span>
+              <div class="quoteContainer">
+                <p class="quote-phrase"><span class="quote-marks">"</span> Maintain that body you live in.<span class="quote-marks">"</span>
 
-                    </p>
-                </div>
+                </p>
+              </div>
             </li>
-        </ul>
+          </ul>
+        </div>
+      </div>
     </div>
-</div>
-</div>
 
 <div class="container">
     <div class="row">
@@ -134,6 +134,9 @@
     </section>
 
 <section class="promotion">
+  <div class="text-center">
+      <h1>Fitness Bar</h1>
+  </div>
   <div class="slider">
     <?php foreach ($this->ads as $ad) : ?>
       <input class="slider__nav" type="radio" name="slider" title="slide<?= $ad->id?>" checked="checked"/>

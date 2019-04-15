@@ -4,10 +4,11 @@ html {
 
 body {
     background-image: url(../img/pattern.png);
-    font-size: 15px;
     font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
     font-weight: 300;
 }
+
 
 @font-face {
   font-family: "Rajdhani";
@@ -94,7 +95,34 @@ p {
     color: #949494;
     font-size: 15px;
 }
+/*------------------------------------------------------------------
+[Mobile First Media Queries]
+*/
 
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (min-width : 480px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+}
 .clear {
     clear: both;
 }
@@ -140,19 +168,19 @@ input[type="color"],
 
 
 h1 {
-    font-size: 3rem;
-    line-height: 5rem;
-    font-weight: 300;
-    font-family: 'Rajdhani';
     color:#000;
+    font-family: 'Rajdhani';
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 5rem;
 }
 
 
 h2 {
+    font-family: 'Rajdhani';
     font-size: 30px;
     line-height: 3rem;
     margin-bottom: .9rem;
-    font-family: 'Rajdhani';
 }
 
 h3 {
@@ -1980,10 +2008,19 @@ table th{
   height: 60%;
   position: relative;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
-  align-items: flex-end;
-  justify-content: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .slider__nav {
   width: 12px;
@@ -1993,7 +2030,8 @@ table th{
   z-index: 10;
   outline: 6px solid #ccc;
   outline-offset: -6px;
-  box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
+  -webkit-box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
+          box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
   cursor: pointer;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -2027,19 +2065,36 @@ table th{
   left: 0;
   width: 100%;
   height: 70%;
+  -webkit-transition: all 1s ease-out;
   transition: all 1s ease-out;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
 }
 .slider__contents {
   height: 100%;
   padding: 2rem;
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex: 1;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 .slider__image {
   font-size: 2.7rem;
@@ -2059,22 +2114,26 @@ table th{
 @-webkit-keyframes check {
   50% {
     outline-color: #333;
-    box-shadow: 0 0 0 12px #333, 0 0 0 36px rgba(51, 51, 51, 0.2);
+    -webkit-box-shadow: 0 0 0 12px #333, 0 0 0 36px rgba(51, 51, 51, 0.2);
+            box-shadow: 0 0 0 12px #333, 0 0 0 36px rgba(51, 51, 51, 0.2);
   }
   100% {
     outline-color: #333;
-    box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
+    -webkit-box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
+            box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
   }
 }
 
 @keyframes check {
   50% {
     outline-color: #333;
-    box-shadow: 0 0 0 12px #333, 0 0 0 36px rgba(51, 51, 51, 0.2);
+    -webkit-box-shadow: 0 0 0 12px #333, 0 0 0 36px rgba(51, 51, 51, 0.2);
+            box-shadow: 0 0 0 12px #333, 0 0 0 36px rgba(51, 51, 51, 0.2);
   }
   100% {
     outline-color: #333;
-    box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
+    -webkit-box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
+            box-shadow: 0 0 0 0 #333, 0 0 0 0 rgba(51, 51, 51, 0);
   }
 }
 
