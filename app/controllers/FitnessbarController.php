@@ -13,6 +13,10 @@ class FitnessbarController extends Controller
      */
     public function index()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $Ad = $this->model('ads');
 
         $q = ''; // Search string
@@ -40,6 +44,10 @@ class FitnessbarController extends Controller
      */
     public function create()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $Ad = $this->model('ads');
 
         // load views. within the views we can echo out $ads easily
@@ -52,6 +60,9 @@ class FitnessbarController extends Controller
      * @return void
      */
     public function store() {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
 
         // TODO:
         // Update query with  status
@@ -145,6 +156,10 @@ class FitnessbarController extends Controller
      */
     public function edit($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         if (isset($id)) {
             $Ad = $this->model('ads');
 
@@ -163,6 +178,10 @@ class FitnessbarController extends Controller
      */
     public function update($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         // if we have POST data to create a new vehicle_request entry
         if (isset($_POST["submit_update_ad"])) {
             $user_id = Session::get('id');
@@ -223,6 +242,10 @@ class FitnessbarController extends Controller
      */
     public function delete($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+        
         if (isset($_POST["submit_delete_ad"])) {
             $user_id = Session::get('id');
             $Ad = $this->model('ads');

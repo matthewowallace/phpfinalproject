@@ -13,6 +13,10 @@ class InventoryController extends Controller
      */
     public function index()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $Product = $this->model('product');
 
         $q = ''; // Search string
@@ -40,6 +44,10 @@ class InventoryController extends Controller
      */
     public function create()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $Product = $this->model('product');
         $categories = $Product->getAllCategories();
 
@@ -55,6 +63,10 @@ class InventoryController extends Controller
      * @return void
      */
     public function store() {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         // if we have POST data to create a new vehicle_request entry
         if (isset($_POST["submit_add_product"])) {
             
@@ -127,6 +139,10 @@ class InventoryController extends Controller
      */
     public function edit($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         if (isset($id)) {
             $Product = $this->model('product');
 
@@ -145,8 +161,15 @@ class InventoryController extends Controller
      */
     public function update($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         // if we have POST data to create a new vehicle_request entry
         if (isset($_POST["submit_update_product"])) {
+            $User = $this->model('user');
+
+            // $user_id = $User->isAdmin(Session::get('id')) ? Session::get('id') : Session::get('id');
             $user_id = Session::get('id');
             $product_name = filter_var($_POST['product_name'], FILTER_SANITIZE_STRING);
             $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
@@ -203,6 +226,10 @@ class InventoryController extends Controller
      */
     public function delete($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+        
         if (isset($_POST["submit_delete_product"])) {
             $Product = $this->model('product');
             $Product->deleteProduct($id);

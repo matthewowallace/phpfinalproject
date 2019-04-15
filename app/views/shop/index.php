@@ -2,7 +2,7 @@
     <div class="container">
         <div class="uk-grid">
             <div class="uk-width-1-1">
-            <form  method="POST" action="<?php echo URL . '/shop'; ?>" accept-charset="UTF-8" style="display: inline-block;">
+            <form  method="POST" action="<?php echo URL . 'shop'; ?>" accept-charset="UTF-8" style="display: inline-block;">
                 <input class="Search" name="q" placeholder="Search" value="<?= !empty($this->q) ? $this->q : '' ?>" type="text">
                 <input class="Searchbtn" value="Search" type="submit" name="submit_search_shop">
             </form>

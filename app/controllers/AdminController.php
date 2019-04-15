@@ -25,6 +25,44 @@ class AdminController extends Controller
         ]);
     }
 
+    public function change()
+    {
+        if (!Session::userIsLoggedIn() && !$this->is_admin(Session::get('id'))) {
+            Redirect::to('user/login');
+        }
+// die(var_dump($_POST));
+        $User = $this->model('user');
+        if (isset($_POST['submit_change_user_admin'])) {
+            $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+            $cpassword = filter_var($_POST['cpassword'], FILTER_SANITIZE_STRING);
+            $is_dirty = false;
+            $successful = false;
+
+            if ($password !== $cpassword) {
+                Session::add('feedback_negative', 'Passwords does not match');
+                $is_dirty = true;
+            }
+
+            if (!$is_dirty) {
+                $password_hash = password_hash($password, PASSWORD_DEFAULT);
+                $successful = $User->updatePassword(Session::get('id'), $password_hash);
+            }
+
+            if ($successful) {
+                Session::add('feedback_positive', 'Password updated');
+                Redirect::to('admin/users');
+            } else {
+                Redirect::to('admin/change');
+            }
+        }
+
+        $user = $User->getUserById(Session::get('id'));
+
+        $this->view->render_admin('admin/change-password', [
+            'user' => $user,
+        ]);
+    }
+
     public function users($action=null, $id=null)
     {
         if (!Session::userIsLoggedIn() && !$this->is_admin(Session::get('id'))) {
@@ -134,6 +172,120 @@ class AdminController extends Controller
             $users = $User->getUsers();
             $this->view->render_admin('admin/index', [
                 'users' => $users,
+            ]);
+        }        
+    }
+
+
+    public function products($action=null, $id=null)
+    {
+        if (!Session::userIsLoggedIn() && !$this->is_admin(Session::get('id'))) {
+            Redirect::to('user/login');
+        }
+
+        $Product = $this->model('product');
+        
+        if (isset($_POST['submit_add_product_admin'])) {
+            $is_dirty = false;
+
+            // Sanitize and validate information.
+            $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+            $cpassword = filter_var($_POST['cpassword'], FILTER_SANITIZE_STRING);
+            $image_path = '';
+
+            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+            if ($password !== $cpassword) {
+                Session::add('feedback_negative', 'Passwords does not match');
+                $is_dirty = true;
+            }
+
+            $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+            
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {                
+                Session::add('feedback_negative', 'Invalid email entered');
+                $is_dirty = true;
+            }
+
+            if (isset($_FILES['image'])){
+                $errors= array();
+                $file_name = $_FILES['image']['name'];
+                $file_size =$_FILES['image']['size'];
+                $file_tmp =$_FILES['image']['tmp_name'];
+                $file_type=$_FILES['image']['type'];
+                $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+                
+                $extensions= array("jpeg","jpg","png");
+                
+                if (in_array($file_ext, $extensions) === false){
+                    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+                }
+                
+                // if ($file_size > 2097152){
+                //     $errors[]='File size must be less then than 2 MB';
+                // }
+                
+                if (empty($errors) == true) {
+                    $image_path = URL . '/uploads/' . $file_name;
+                    if (move_uploaded_file($file_tmp, ASSET_ROOT . '/uploads/' . $file_name)) {
+                        echo "File is valid, and was successfully uploaded.\n";
+                    } else {
+                        Session::add('feedback_negative', 'Upload failed');
+                    }
+                }else{
+                    Session::add('feedback_negative', $errors);
+                }
+            }
+
+            $successful = false;
+
+            if (!$is_dirty) {
+                $User = $this->model('User');
+                $user_id = (int)filter_var($_POST['user_id'], FILTER_SANITIZE_STRING);
+                $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+                $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
+                $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);
+                $is_subscriber = isset($_POST['is_subscriber']) ? (int)filter_var($_POST['is_subscriber'], FILTER_SANITIZE_STRING) : 0;
+                $is_contributer = isset($_POST['is_contributer']) ? (int)filter_var($_POST['is_contributer'], FILTER_SANITIZE_STRING) : 0;
+                $is_admin = isset($_POST['is_admin']) ? (int)filter_var($_POST['is_admin'], FILTER_SANITIZE_STRING) : 0;
+                
+                if ($action == 'add') {
+                    // Save user if error return false
+                    $successful = $User->addUser($username, $first_name, $last_name, $email, $password_hash, $is_subscriber, $is_contributer, $is_admin, $image_path);
+                }
+
+                if ($action == 'update') {
+                    $successful = $User->updateUser($user_id, $username, $first_name, $last_name, $email, $password_hash, $is_subscriber, $is_contributer, $is_admin, $image_path);
+                }
+            }
+
+            if ($successful) {
+                Redirect::to('admin/users');
+            } else {
+                Redirect::to('admin/users/add');
+            }
+        }
+
+        if ($action == 'delete' && $id) {
+            $User->deleteUser($id);
+            Redirect::to('admin/products');
+        }
+
+        if ($action == 'add') {
+            $this->view->render_admin('admin/products', [
+                'products' => [],
+            ]);
+
+        } if ($action == 'edit' && $id) {
+            $products = $User->getUserById($id);
+            $this->view->render_admin('admin/products', [
+                'products' => $products,
+            ]);
+
+        } else {
+            $products = $Product->getAllProducts();
+            $this->view->render_admin('admin/products', [
+                'products' => $products,
             ]);
         }        
     }

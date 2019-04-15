@@ -13,6 +13,10 @@ class ShopController extends Controller
      */
     public function index()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $Product = $this->model('product');
 
         $q = ''; // Search string
@@ -22,7 +26,7 @@ class ShopController extends Controller
         if (isset($_POST["submit_search_shop"])) {
             $q = filter_var($_POST['q'], FILTER_SANITIZE_STRING);
             
-            $products = $Product->getProducts($user_id, $q);
+            $products = $Product->getProducts(null, $q);
         } else {
             $products = $Product->getAllProducts();
         }
@@ -46,6 +50,10 @@ class ShopController extends Controller
      */
     public function seller($id)
     {        
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         // TODO: Add search filter
         $product = $this->model('product');
         $products = $product->getSellerProducts($id, $q="");

@@ -2,6 +2,9 @@
     <div class="container">
         <div class="row">
             
+            <!-- echo out the system feedback (error and success messages) -->
+            <?php View::renderFeedbackMessages(); ?>
+            
             <!-- echo out the admin bar -->
             <?php View::renderSideBar(); ?>
 

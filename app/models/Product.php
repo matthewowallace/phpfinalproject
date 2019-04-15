@@ -22,12 +22,22 @@ class Product
         $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`product_name`, `products`.`description`, `products`.`brand`, `users`.`username`, `products`.`user_id` as seller_id, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM  `products`
         LEFT JOIN users ON `products`.`user_id`=`users`.`id`
         LEFT JOIN category ON `products`.`category_id`=`category`.`id`
+        WHERE `products`.`is_public`
         ";
+
+        if ($user_id) {
+            $sql .= " AND `products`.`user_id`=:user_id";
+        }
 
         // TODO: Query for the user that added the product
         $query = $this->db->prepare($sql);
 
-        $query->execute();
+        $parameters = [];
+        if ($user_id) { 
+            $parameters[':user_id'] = $user_id;
+        }
+
+        $query->execute($parameters);
 
         // return one row (we only have one result or nothing)
         return $query->fetchAll();
@@ -36,17 +46,23 @@ class Product
     /**
      * Gets all products from database
      */
-    public function getProducts($id=null, $q)
+    public function getProducts($id=null, $q='')
     {
         $sql = "SELECT `products`.`id`, `products`.`prod_image_path`, `products`.`product_name`,`products`.`description`, `products`.`brand`, `users`.`username`, `category`.`category_name` AS category, `products`.`is_public`, `products`.`cost`, `products`.`created_at`, `products`.`updated_at` FROM `products`
         LEFT JOIN users ON `products`.`user_id`=`users`.`id`
         LEFT JOIN category ON `products`.`category_id`=`category`.`id`
-        WHERE `products`.`description` LIKE :qa AND `products`.`user_id`=:user_id
-        ";
+        WHERE `products`.`description` LIKE :qa AND `products`.`is_public`";
         
+        if ($id) {
+            $sql .= " AND `products`.`user_id`=:user_id";
+        }
+
         $query = $this->db->prepare($sql);
 
-        $parameters = array(':qa' => '%' . trim($q) . '%', ':user_id' => $id);
+        $parameters = array(':qa' => '%' . trim($q) . '%');
+        if ($id) { 
+            $parameters[':user_id'] = $id;
+        }
         $query->execute($parameters);
         
         // return one row (we only have one result or nothing)
@@ -116,7 +132,7 @@ class Product
         $sql .= "WHERE user_id=:user_id AND id=:id";
         
         $query = $this->db->prepare($sql);
-        $parameters = array(':id' => $id, ':user_id' => $user_id, ':product_name' => $product_name, ':description' => $description, ':category_id' => $category_id, ':cost' => $cost, ':is_public' => $is_public);
+        $parameters = array(':id' => $id, ':user_id' => $user_id, ':product_name' => $product_name, ':description' => $description, ':category_id' => $category_id, ':cost' => $cost, ':is_public' => (int)$is_public);
 
         // If image was uploaded update path
         if (!empty($prod_image_path)) { 

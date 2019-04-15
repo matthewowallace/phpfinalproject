@@ -13,6 +13,10 @@ class UserController extends Controller
      */
     public function index()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $user = $this->model('user');
         
         $this->view->render('home/index', [
@@ -137,6 +141,10 @@ class UserController extends Controller
      */
     public function profile()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $User = $this->model('user');
         $user = $User->getUserbyEmail(Session::get('email')); // getting all users
         $Order = $this->model('order');
@@ -161,6 +169,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         if (isset($id)) {
             $User = $this->model('user');
 
@@ -178,6 +190,10 @@ class UserController extends Controller
      */
     public function update($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $is_dirty = false;
         $password_hash = null;
         if (!empty($_POST['password']) && !empty($_POST['cpassword'])) {         
@@ -233,6 +249,10 @@ class UserController extends Controller
      */
     public function agree() 
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         // if we have POST data to create a new user entry
         if (isset($_POST['submit_upgrade_user'])) {
             $User = $this->model('User');
@@ -280,6 +300,10 @@ class UserController extends Controller
      */
     public function change()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+        
         if (isset($_POST["submit_change_profile"])) {
             
             $user_id = Session::get('id');

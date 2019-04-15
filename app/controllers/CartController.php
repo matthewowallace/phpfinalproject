@@ -13,6 +13,10 @@ class CartController extends Controller
      */
     public function index()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $Cart = $this->model('cart');
         $user_id = Session::get('id');
         $shopping_cart = $Cart->getCart($user_id);
@@ -29,6 +33,10 @@ class CartController extends Controller
      * @return void
      */
     public function add($product_id) {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         // if we have POST data to create a new vehicle_request entry
         if (isset($_POST["submit_add_cart"])) {
             
@@ -55,6 +63,10 @@ class CartController extends Controller
      */
     public function update($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         // where to go after vehicle_request has been added
         Redirect::to('cart');
     }
@@ -65,6 +77,10 @@ class CartController extends Controller
      */
     public function checkout()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         $Cart = $this->model('cart');
         $shopping_cart = $Cart->getCart(Session::get('id'));
         $cards = $Cart->getCards(Session::get('id'));
@@ -81,6 +97,10 @@ class CartController extends Controller
      */
     public function done()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         if (isset($_POST['submit_complete_purchase'])) {
             
             $is_dirty = false;
@@ -138,6 +158,10 @@ class CartController extends Controller
      */
     public function delete($id)
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+
         if (isset($_POST["submit_remove_product"])) {
             $Cart = $this->model('cart');
             $Cart->deleteCart($id);
@@ -149,6 +173,10 @@ class CartController extends Controller
 
     public function summary()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+        
         // load views. within the views we can echo out $carts easily
         $this->view->render('cart/summary', []);
     }

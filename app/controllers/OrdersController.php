@@ -13,6 +13,10 @@ class OrdersController extends Controller
      */
     public function index()
     {
+        if (!Session::userIsLoggedIn()) {
+            Redirect::to('user/login');
+        }
+        
         $Order = $this->model('order');
         $orders = $Order->getAllOrders(SESSION::get('id'));
         $myorders = array();

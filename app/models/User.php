@@ -124,6 +124,23 @@ class User
         return true;
     }
 
+    public function updatePassword($id, $password)
+    {
+        $sql = "UPDATE `users` SET `password`=:password WHERE `id`=:id";
+
+        $query = $this->db->prepare($sql);
+        $parameters = array(':id' => $id, ':password' => $password);
+
+        $query->execute($parameters);
+        
+        if (!$query) {
+            Session::add('feedback_negative', 'An error occured updating user. Please try again.');
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Update user to database.
      * 
@@ -206,6 +223,22 @@ class User
 
         // return one row (we only have one result or nothing)
         return $query->fetch();
+    }
+
+    public function isAdmin($user_id)
+    {
+        $sql = "SELECT id, is_admin
+                FROM users
+                WHERE (id=:user_id)
+                LIMIT 1";
+        
+        // Executes query.
+        $query = $this->db->prepare($sql);
+        $query->execute(array(':user_id' => $user_id));
+
+        // return one row (we only have one result or nothing)
+        $user = $query->fetch();
+        return $user->is_admin == 1 ? true : false;
     }
 
     public function upgradeAccount($id, $agree)

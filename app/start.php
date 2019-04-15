@@ -23,7 +23,8 @@ define('URL',
     str_replace(
         $_SERVER['DOCUMENT_ROOT'],
         '',
-        str_replace('\\', '/', INC_ROOT).'public'
+        str_replace('\\', '/', INC_ROOT)
+        // str_replace('\\', '/', INC_ROOT).'public'
     )
 );
 

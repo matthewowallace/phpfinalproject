@@ -14,7 +14,7 @@
                 <input class="Searchbtn" value="Search" type="submit" name="submit_search_inventory">
             </form>
         </div>
-<div class="container">
+    <div class="container">
         <table>
             <tr>
                 <th>&nbsp;</th>
