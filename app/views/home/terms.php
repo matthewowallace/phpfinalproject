@@ -1,8 +1,10 @@
-<div class="container">    
-  <div class="row">
-    <h2>Terms and Conditions</h2>
-    <h3>TERMS OF SUBSCRIPTION SERVICE</h3>
-    <h4>Effective: March 13, 2019</h4>
+<div class="bg">
+  <div class="terms">
+   	<div class="reg-title"><h2>Terms and Conditions</h2></div>
+    <div class="reg-title"><h4>TERMS OF SUBSCRIPTION SERVICE</h4></div>
+    <div class="reg-title"><h4>Effective: March 13, 2019</h4></div>
+   </div>
+<div class="container">
     <p>
       These Terms of Subscription Service (“Agreement”) are entered into by and between the entity
 or person placing an order or accessing the Solutions (as defined below) (“Client”) and the
@@ -1237,7 +1239,8 @@ which benefit and are enforceable by HealthJam Nordic AB. Notwithstanding the fo
 Agreement may be varied in accordance with its terms by HealthJam Nordic AB without the
 consent of, and without reference to, HealthJam Inc.      
     </p>
-  </div>
 </div>
-</main>
+</div>
+
+
 
