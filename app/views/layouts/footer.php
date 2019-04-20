@@ -1,9 +1,9 @@
  <footer class="page-footer font-small black pt-4">
        <!-- Footer Links -->
-    <div><img class="logos" src="<?php echo URL; ?>/img/logo.png" alt="logos"></div>
-   <p>London is the capital city of England.The shadow of death covers the ground, ravaged by chaos and destruction. A portal, known as the Void, let sinister demons into our world. Their goal is to eliminate all humanity. But the Gods gave humanity a slither of hope: SoulWorkers.
-
- Children that were once lost to the void have returned to the world. Equipped with supernatural powers, they have the strength to put an end to the forces of darkness.</p>
+    <div class="l"><img class="logos" src="<?php echo URL; ?>/img/logo.png" alt="logos"></div>
+   <p>Nothing comes easy, but as long as you’re breathing, you’re always one breath away from making your dreams a reality. Make every breath count.
+   <br>
+   Kai Greene</p>
    <div class="Support"><a>Privacy Policy</a><a href="<?= URL ?>/terms">Terms Of Use</a><a>Support</a></div>
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© HealthJam,INC.2019 Copyright:
