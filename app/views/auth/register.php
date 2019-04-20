@@ -31,7 +31,9 @@
                     </span> -->
                     <!-- <span class = "error"><?php echo $emailErr;?></span><br/><br /> -->
                     <div class="input_field checkbox_option">
-                    <label for="cb1">I agree with terms and conditions <input type="checkbox" id="cb1" required></label>
+                    <div class="con">
+                        <label for="cb1">I agree with terms and conditions <input type="checkbox" id="cb1" required></label>
+                    </div>
                     <div class="submit">
                         <button type="submit" name="submit_register_user" value = " Submit " class="btn btn-orange">SIGN UP</button>
                     </div>

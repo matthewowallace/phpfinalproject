@@ -73,6 +73,7 @@
         <span class="close-1">&times;</span>
         <div class="container">
             <div class="row">
+               
                 <div class="subscription-panel">
                     <h4>1-MONTH PLAN</h4>
                     <h3><span class="dollar">$</span>15<span class="per-month">/mo</span></h3>
