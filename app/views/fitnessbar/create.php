@@ -14,29 +14,29 @@
                     <label for="description">Description</label>
                     <input type="text" name="description" id="description" placeholder="Product Description" required>
                 </span>
-
+                <br>
                 <span class="in_form">
                     <label for="url">URL</label>
                     <input type="text" name="url" id="url" placeholder="URL">
                 </span>
-
+                <br>
                 <span class="in_form">
                     <label for="cost">Cost</label>
                     <input type="text" name="cost" id="cost" placeholder="Cost">
                 </span>
-
+                <br>
                 <span class="in_form">
                     <label for="start_date">Start Date</label>
                     <input type="date" name="start_date" id="start_date" placeholder="Start date">
                 </span>
-
+                <br>
                 <span class="in_form">
                     <label for="end_date">End Date</label>
                     <input type="date" name="end_date" id="end_date" placeholder="End date">
                 </span>
                  <br>
                 <span class="in_form">
-                   
+                
                     <div class="radio-group">
                         <label for="">Promotion Status: </label>
                         <label for="status-active">Active</label>
@@ -45,7 +45,7 @@
                         <input type="radio" name="is_active" id="status-inactive" value="0">
                     </div>
                 </span>
-
+                
                 <input type="file" name="image" />
 
                 <span class="form__btn--group">

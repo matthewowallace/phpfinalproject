@@ -4,7 +4,7 @@
             <div class="reg-title">
                 <!-- echo out the system feedback (error and success messages) -->
                 <?php View::renderFeedbackMessages(); ?>
-                <h2>Login</h2>
+                <h2 class="title">Login</h2>
             </div>
             <form action="<?php echo URL; ?>/user/authenticate" method="post">
                 <label>E-mail  </label><br><input type = "text" name = "email" class = "box"/><br /><br />

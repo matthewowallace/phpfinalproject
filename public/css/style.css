@@ -321,10 +321,18 @@ p:last-child {
 .box {
   background: #fff;
   border: 1px solid #e8e8e8;
-  padding: 2em;
-  margin-bottom: 2em;
   -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.08);
   box-shadow: 0 15px 15px rgba(0,0,0,.08);
+}
+
+form input:focus{
+  background-color:#eee;
+  color: #000;
+}
+
+.reg-title h2{
+    font-size: 2em;
+  font-family: 'Bungee', cursive;
 }
 
 .brand {
@@ -349,6 +357,15 @@ p:last-child {
   margin-top: 10px;
 }
 
+.submit{
+  margin-top: 10px;
+}
+
+.submit button{
+  width: 90%;
+}
+
+
 .nav-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -358,6 +375,7 @@ nav {
   float: right;
   background: #222;
 }
+
 nav ul {
   list-style: none;
   margin: 0;
@@ -382,6 +400,10 @@ nav ul li a:visited:hover {
   color:  #c77617;
   text-shadow: 1px 1px #000;
 }
+
+
+
+
 nav ul li a:not(:only-child):after,
 nav ul li a:visited:not(:only-child):after {
   padding-left: 4px;
@@ -416,6 +438,25 @@ nav ul li ul li a {
   .nav-mobile {
     display: block;
   }
+
+
+
+ 
+
+
+
+
+ .Register{
+  margin-top: 30px;
+  padding-bottom: 50px;
+  margin-bottom: 30px;
+  margin-left: 0px;
+  padding-left: 20px;
+  -webkit-box-shadow: 0 3px 6px 0 rgba(47,83,151,0.10);
+          box-shadow: 0 3px 6px 0 rgba(47,83,151,0.10);
+  width: 320px;
+  background-color:rgba(0,0,0,0.6);
+}
 
   .brand {
     line-height: 70px;
@@ -563,6 +604,7 @@ nav ul li ul li a {
     font-size: 6em;
   }
 
+
   .about_us{
   padding: 10px;
   z-index: 9999;
@@ -570,7 +612,7 @@ nav ul li ul li a {
           transform: translateY(-65px);
   }
 
-  
+
   .Hero_area{
   background-image: url(../img/1.png);
   background-size: cover;
@@ -1161,8 +1203,12 @@ width: 100%;
 .logos{
   width: auto;
   height: 200px;
-  padding-left: 46%;
+ 
 }
+.l{
+  text-align: center;
+}
+
 
 /* Features  ----------------- */
 
@@ -1215,6 +1261,10 @@ width: 100%;
 }
 
 
+.term{
+  text-align: center;
+}
+
 .text-center h2 {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -1259,9 +1309,11 @@ iframe{
 
 @media screen and (max-width: 700px) {
 
-.logos{
-  margin-left: 25%;
+
+.profile-text .Search{
+  width: 70%;
 }
+
  .text-center h1 {
      font-size: 6em;
 }
@@ -1276,7 +1328,30 @@ iframe{
  padding-right: 40px;
 }
 
+.stay_connected{
+  display: none;
+}
 
+.scrolltop {
+  display:none;
+  width:100%;
+  margin:0 auto;
+  position:fixed;
+  bottom:0px;
+  right:0px; 
+  color:#c77617;
+  text-shadow: 1px 1px #000;
+}
+
+.scroll .fa {
+  font-size:10px;
+  margin-top:-5px;
+  margin-left:1px;
+  transition: 0.5s;
+  -moz-transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -o-transition: 0.5s;  
+}
 
 
 .fitness-left{
@@ -1299,10 +1374,6 @@ iframe{
 width: 100%;
 }
 
-
-#sign_up {
-  padding-left: 29%;
-}
 
 
  #buttons {
@@ -1385,6 +1456,7 @@ width:35px;
   color: #c77617;
   text-align: left;
   padding-right:5px;
+  padding-top: 10px;
 }
 
 .Register input{
@@ -1393,13 +1465,14 @@ width:35px;
   border: none;
   border-bottom: 2px solid  #c77617;
   width: 280px;
+  height: 25px;
 }
 
 .Register{
   margin-top: 30px;
   padding-bottom: 50px;
   margin-bottom: 30px;
-  margin-left: 35%;
+  margin-left: 10%;
   padding-left: 20px;
   -webkit-box-shadow: 0 3px 6px 0 rgba(47,83,151,0.10);
           box-shadow: 0 3px 6px 0 rgba(47,83,151,0.10);
@@ -1407,14 +1480,36 @@ width:35px;
   background-color:rgba(0,0,0,0.6);
 }
 
+.con {
+  position: absolute;
+  display: inline;
+  transform: translateY(-40px);
+
+ }
+
+ .con input{
+  width: 10%;
+ }
+
+.con label{
+  font-size: 12px;
+}
+
 .reg-title h2{
   padding-top: 30px;
   color: #c77617;
   text-align: center;
-  font-family: "Rajdhani";
+}
+
+.reg-title h4{
+  padding-top: 2px;
+  color: #c77617;
+  text-align: center;
+    font-size: 20px;
 }
 
 .submit{
+  padding-top: 10px;
   text-align: left; 
   padding-bottom: 30px;
 }
@@ -1599,6 +1694,8 @@ width:35px;
 
 }
 
+
+
 .profile-text h4{
   text-align: center;
   font-size: 20px;
@@ -1634,6 +1731,8 @@ width:35px;
   padding-top: 30px;
   padding-bottom: 30px;
 }
+
+
 
 .pd-dash{
   padding-top: 50px;
@@ -1697,11 +1796,8 @@ width:35px;
     -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-   -webkit-box-shadow: 0 3px 10px -2px rgba(0,0,0,0.8);
-          box-shadow: 0 3px 10px -2px rgba(0,0,0,0.8);
-  border-radius: 3px;
-  margin-left: 250px;
-  margin-right: 250px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .radio-group input{
@@ -1745,7 +1841,7 @@ width:35px;
   margin: auto;
   padding: 20px;
   border: 0px solid #888;
-  width: 60%;
+  width: 100%;
   -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
           box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
 }
@@ -1771,7 +1867,7 @@ width:35px;
   margin: auto;
   padding: 20px;
   border: 0px solid #888;
-  width: 60%;
+  width: 100%;
   -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
           box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
 }
@@ -1898,12 +1994,13 @@ width:35px;
 }
 
 .subscription-panel{
-  width: 32%;
+  width: auto;
   background: #222;
   margin: 4px 4px;
   padding: 16px 13px;
   text-align: center;
   color: #fff;
+  flex-grow: 1;
 }
 
 .subscription-panel h3{
@@ -2157,4 +2254,57 @@ table th{
 .slider__contents video{
   width: 600px;
   height: auto;
+}
+
+
+@media only screen and (min-width : 1440px) {
+
+.fitness-img{
+  z-index: 1;
+  -webkit-transform:translateY(-100px) translateX(330px);
+          transform:translateY(-100px) translateX(330px);
+
+}
+
+.fitness-img-2{
+ -webkit-transform:translateY(-660px);
+         transform:translateY(-660px);
+ width: auto;
+ height: 300px;
+}
+
+.fitness-left h3{
+ font-size: 3em;
+}
+
+
+}
+
+.radio-group input{
+  width: 20px;
+}
+
+.shop-img{
+  width: 300px;
+  height: auto;
+}
+
+
+.f1{
+  background: #FFFFFF;
+  margin: 6px 6px;
+  padding: 16px 16px;
+  width: 300px;
+  text-align: center;
+  transition: 300ms;
+  flex-grow: 1;
+  height: 500px;
+  overflow-y: hidden;
+  -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.08);
+          box-shadow: 0 5px 15px rgba(0,0,0,.08);
+}
+
+.media-v1 img{
+   height: 200px;
+   width: 200px;
 }

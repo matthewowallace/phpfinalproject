@@ -1,19 +1,21 @@
 <div class="bg">
     <div class="container">
-        <div class="uk-grid">
-            <div class="uk-width-1-1">
+        <div class="profile-text">  
+              <h3>SHOP</h3>
             <form  method="POST" action="<?php echo URL . 'shop'; ?>" accept-charset="UTF-8" style="display: inline-block;">
                 <input class="Search" name="q" placeholder="Search" value="<?= !empty($this->q) ? $this->q : '' ?>" type="text">
                 <input class="Searchbtn" value="Search" type="submit" name="submit_search_shop">
             </form>
-
-                <div class="uk-child-width-1-1@s uk-child-width-1-5@m uk-padding uk-grid">
+        </div>
+<div class="row">
                 <?php foreach ($this->products as $product) : ?>
-                    <div class="uk-card uk-card-default">
-                        <div class="uk-card-media-top uk-text-center"><br>
-                            <img class="imageSizing" src="<?= !empty($product->prod_image_path) ? $product->prod_image_path : URL . '/img/no-image.jpeg' ?>" alt="">
+                   
+                    <div class="f1">
+                        <div class="media-v1">
+                            <img class="shop-img" src="<?= !empty($product->prod_image_path) ? $product->prod_image_path : URL . '/img/no-image.jpeg' ?>" alt="">
                         </div>
-                        <div class="uk-card-body">
+                        
+                        <div class="shop-panel">
                             <input type="hidden" name="id" value="<?php echo htmlspecialchars($product->id, ENT_QUOTES, 'UTF-8'); ?>">
                             <h4><?php echo htmlspecialchars($product->description, ENT_QUOTES, 'UTF-8'); ?></h4>
                             <p class="uk-text-small">
@@ -48,15 +50,16 @@
                                                     <option value="19">19</option>
                                                     <option value="20">20</option>
                                                 </select>
-                                                <input value="Add to Cart" type="submit" name="submit_add_cart">
+                                                <input value="Add to Cart" type="submit" name="submit_add_cart" class="btn btn-orange">
                                             </form>
                                     </span>
                             </p>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    
                 </div>
-            </div>
-        </div>
+             
+                <?php endforeach; ?>
+              
+   </div>
     </div>
 </div>
