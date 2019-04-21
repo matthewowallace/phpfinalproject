@@ -116,7 +116,7 @@ class FitnessbarController extends Controller
                     $file_path = ASSET_ROOT . '/img/' . $uid . $file_name;
 
                     if (move_uploaded_file($file_tmp, $file_path)) {
-                        Session::add('File was successfully uploaded.\n');
+                        Session::add('feedback_positive', 'File was successfully uploaded.\n');
                     } else {
                         Session::add('feedback_negative', 'Upload failed. Please try again.');
                         // return;
