@@ -66,7 +66,7 @@ class InventoryController extends Controller
         if (!Session::userIsLoggedIn()) {
             Redirect::to('user/login');
         }
-
+        
         // if we have POST data to create a new vehicle_request entry
         if (isset($_POST["submit_add_product"])) {
             

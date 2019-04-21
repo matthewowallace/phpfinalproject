@@ -13,9 +13,9 @@ class ShopController extends Controller
      */
     public function index()
     {
-        if (!Session::userIsLoggedIn()) {
-            Redirect::to('user/login');
-        }
+        // if (!Session::userIsLoggedIn()) {
+        //     Redirect::to('user/login');
+        // }
 
         $Product = $this->model('product');
 

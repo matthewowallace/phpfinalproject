@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 08, 2019 at 09:34 AM
+-- Generation Time: Apr 21, 2019 at 01:16 PM
 -- Server version: 10.1.37-MariaDB-0+deb9u1
 -- PHP Version: 7.0.33-0+deb9u3
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `brand` (
   `id` int(11) NOT NULL,
   `brand_name` varchar(50) NOT NULL,
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -42,9 +42,21 @@ CREATE TABLE `brand` (
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `category_name` varchar(50) NOT NULL,
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `category_name`, `created_at`, `updated_at`) VALUES
+(2, 'Fitness Gear', '2019-03-05 03:38:03', '2019-03-18 02:29:00'),
+(3, 'Health Event', '2019-03-18 02:29:31', '2019-03-18 02:29:31'),
+(4, 'Gym Subscription', '2019-03-18 02:29:31', '2019-03-18 02:29:31'),
+(5, 'Suppliment', '2019-04-08 04:10:49', '2019-04-08 04:10:49'),
+(6, 'Vitamins', '2019-04-08 04:10:59', '2019-04-08 04:10:59'),
+(8, 'Protien', '2019-04-08 04:13:00', '2019-04-08 04:13:00');
 
 -- --------------------------------------------------------
 
@@ -57,7 +69,7 @@ CREATE TABLE `contact_us` (
   `name` varchar(50) NOT NULL,
   `email` varchar(191) NOT NULL,
   `message` text NOT NULL,
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -78,7 +90,7 @@ CREATE TABLE `credit_cards` (
   `cvv_code` int(11) NOT NULL,
   `date_added` datetime NOT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -91,17 +103,17 @@ CREATE TABLE `credit_cards` (
 CREATE TABLE `health_ads` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `ad_type` varchar(15) NOT NULL,
-  `file_path` varchar(191) NOT NULL,
-  `description` varchar(191) DEFAULT NULL,
-  `url` varchar(191) NOT NULL,
+  `ad_type` varchar(15) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `file_path` varchar(191) COLLATE utf8mb4_unicode_520_ci NOT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
+  `url` varchar(191) COLLATE utf8mb4_unicode_520_ci NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `cost` decimal(10,2) NOT NULL DEFAULT '0.00',
   `is_active` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
 -- --------------------------------------------------------
 
@@ -119,8 +131,26 @@ CREATE TABLE `orders` (
   `total` decimal(11,2) NOT NULL,
   `card_id` int(11) NOT NULL,
   `cart_token` varchar(191) DEFAULT NULL,
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `partners`
+--
+
+CREATE TABLE `partners` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `address` varchar(191) NOT NULL,
+  `contact` varchar(14) NOT NULL,
+  `email` varchar(191) DEFAULT NULL,
+  `image_path` varchar(191) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -139,7 +169,7 @@ CREATE TABLE `products` (
   `category_id` int(11) DEFAULT NULL,
   `is_public` tinyint(4) NOT NULL DEFAULT '0',
   `cost` decimal(10,0) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -157,7 +187,7 @@ CREATE TABLE `shopping_cart` (
   `cost` decimal(11,2) NOT NULL,
   `quantity` int(11) NOT NULL,
   `total` decimal(11,2) NOT NULL,
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -181,7 +211,7 @@ CREATE TABLE `users` (
   `subscription_start` datetime DEFAULT NULL,
   `subscription_end` datetime DEFAULT NULL,
   `image_path` varchar(191) DEFAULT NULL,
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -190,7 +220,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `first_name`, `last_name`, `password`, `email`, `is_admin`, `is_contributer`, `is_subscriber`, `subscription_plan`, `subscription_start`, `subscription_end`, `image_path`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '', '', '$2y$10$9S7xlNqwDZgBtF081RJSVOwqJrmf.r8YI9uOyUJRNNkdNQE2zlnLC', 'admin@mail.com', 1, 1, 1, NULL, NULL, NULL, '', '2019-04-08 08:56:09', '2019-04-08 08:57:07'),
+(1, 'admin', '', '', '$2y$10$4Z/iBFpqdX0vzQcrfBLIseuzw6NXly8099NbjFs0Cqo0MtDTybq8K', 'admin@mail.com', 1, 1, 1, NULL, NULL, NULL, '', '2019-04-08 08:56:09', '2019-04-15 04:53:16'),
+(3, 'sammy', 'Samamtha', 'Powell', '$2y$10$xYcr.FrqvQsW4JQbWN6lh.S/wxw.gHBsngi2Ahrm5Jqp98jm7h1V6', 'sam1n@mail.com', 1, 1, 0, NULL, NULL, NULL, '', '2019-03-11 05:12:41', '2019-04-21 17:15:24'),
+(6, 'john', 'John', 'Acorn', '$2y$10$xYcr.FrqvQsW4JQbWN6lh.S/wxw.gHBsngi2Ahrm5Jqp98jm7h1V6', 'johna@mail.com', 0, 0, 1, NULL, NULL, NULL, '', '2019-04-08 16:55:58', '2019-04-21 17:15:01');
 
 -- --------------------------------------------------------
 
@@ -204,7 +236,7 @@ CREATE TABLE `user_preference` (
   `category_id` int(11) NOT NULL,
   `is_contributer` tinyint(4) NOT NULL DEFAULT '0',
   `is_subscriber` tinyint(4) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -254,6 +286,13 @@ ALTER TABLE `orders`
   ADD KEY `card_id` (`card_id`);
 
 --
+-- Indexes for table `partners`
+--
+ALTER TABLE `partners`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -294,47 +333,52 @@ ALTER TABLE `user_preference`
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `contact_us`
 --
 ALTER TABLE `contact_us`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `credit_cards`
 --
 ALTER TABLE `credit_cards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `health_ads`
 --
 ALTER TABLE `health_ads`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT for table `partners`
+--
+ALTER TABLE `partners`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `shopping_cart`
 --
 ALTER TABLE `shopping_cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `user_preference`
 --
@@ -357,6 +401,12 @@ ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`card_id`) REFERENCES `credit_cards` (`id`),
   ADD CONSTRAINT `orders_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `partners`
+--
+ALTER TABLE `partners`
+  ADD CONSTRAINT `partners_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `products`
