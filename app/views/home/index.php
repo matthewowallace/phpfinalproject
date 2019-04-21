@@ -135,7 +135,7 @@
 
 <section class="promotion">
   <div class="text-center">
-      <h1>Fitness Bar</h1>
+      <h1>Fitness Board</h1>
   </div>
   <div class="slider">
     <?php foreach ($this->ads as $ad) : ?>

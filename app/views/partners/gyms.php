@@ -1,8 +1,8 @@
 <div class="bg">
     <div class="container">
         <div class="profile-text">  
-              <h3>GYMS</h3>
-            <form  method="POST" action="<?php echo URL . 'partners/gyms'; ?>" accept-charset="UTF-8" style="display: inline-block;">
+              <h3>PARTNERS</h3>
+            <form  method="POST" action="<?php echo URL . 'partners/list'; ?>" accept-charset="UTF-8" style="display: inline-block;">
                 <input class="Search" name="q" placeholder="Search" value="<?= !empty($this->q) ? $this->q : '' ?>" type="text">
                 <input class="Searchbtn" value="Search" type="submit" name="submit_search_partner">
             </form>

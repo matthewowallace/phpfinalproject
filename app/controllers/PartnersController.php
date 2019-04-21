@@ -39,7 +39,7 @@ class PartnersController extends Controller
         ]);
     }
 
-    public function gyms()
+    public function list()
     {
         $Partner = $this->model('partner');
 
