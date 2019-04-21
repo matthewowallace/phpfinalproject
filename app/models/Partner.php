@@ -96,12 +96,12 @@ class Partner
         return $query->fetch();
     }
 
-    public function updatePartner($id, $name, $address, $user_id, $contact, $email, $image_path="")
+    public function updatePartner($user_id, $id, $name, $address, $contact, $email, $image_path="")
     {
         $sql = "UPDATE `partners` SET `name`=:name, `address`=:address,`contact`=:contact,`email`=:email ";
 
         // If image was uploaded use this query
-        if (!empty($prod_image_path)) {
+        if (!empty($image_path)) {
             $sql .= ", `image_path`=:image_path ";
         }
 
@@ -115,7 +115,7 @@ class Partner
             $parameters[':image_path'] = $image_path;
         }
 
-        $query->execute($parameters);
+        return $query->execute($parameters);
         // die(var_dump($_POST));
     }
 

@@ -39,6 +39,27 @@ class PartnersController extends Controller
         ]);
     }
 
+    public function gyms()
+    {
+        $Partner = $this->model('partner');
+
+        $q = ''; // Search string
+        // if we have POST data to create a new vehicle_request entry
+        if (isset($_POST["submit_search_partner"])) {
+            $q = filter_var($_POST['q'], FILTER_SANITIZE_STRING);
+            
+            $partners = $Partner->getPartners(null, $q);
+        } else {
+            $partners = $Partner->getAllPartners(null); // getting all items
+        }
+
+        // load views. within the views we can echo out $partners easily
+        $this->view->render('partners/gyms', [
+            'partners' => $partners,
+            'q' => $q,
+        ]);
+    }
+
     /**
      * ACTION: Show the form for creating a new resource.
      */
@@ -141,9 +162,8 @@ class PartnersController extends Controller
             $Partner = $this->model('partner');
 
             $partner = $Partner->getPartner($id);
-            $categories = $Partner->getAllCategories();
 
-            $this->view->render('partners/edit', array('partner' => $partner, 'categories' => $categories));
+            $this->view->render('partners/edit', array('partner' => $partner));
         } else {
             // redirect user to requests index page (as we don't have a request_id)
             Redirect::to('partners/index');
@@ -204,8 +224,9 @@ class PartnersController extends Controller
 
             $Partner = $this->model('partner');
             $partner = $Partner->updatePartner($user_id, $id, $name, $address, $contact, $email, $prod_image_path);
-
+// die($id);
             if (!$partner) {
+                Session::add('feedback_negative', 'An error occured udpate partner.\n');
                 Redirect::to('partners/edit/' . $id);
             }
         }

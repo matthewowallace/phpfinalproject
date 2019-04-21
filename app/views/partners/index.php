@@ -9,9 +9,9 @@
         <div class="profile-text">
             <h3>Partners</h3>
             <span><a href="<?= URL ?>partners/create" class="opt">Add Partner</a></span>
-            <form  method="POST" action="<?php echo URL . 'partner'; ?>" accept-charset="UTF-8" style="display: inline-block;">
+            <form  method="POST" action="<?php echo URL . 'partners'; ?>" accept-charset="UTF-8" style="display: inline-block;">
                 <input class="Search" name="q" placeholder="Search" value="<?= !empty($this->q) ? $this->q : '' ?>" type="text">
-                <input class="Searchbtn" value="Search" type="submit" name="submit_search_inventory">
+                <input class="Searchbtn" value="Search" type="submit" name="submit_search_partner">
             </form>
         </div>
     <div class="container">
@@ -31,7 +31,7 @@
                     <!--<td><?php echo htmlspecialchars($partner->id, ENT_QUOTES, 'UTF-8'); ?></td>-->
                     <td><?php echo htmlspecialchars($partner->name, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($partner->address, ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td>$<?php echo htmlspecialchars($partner->contact, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($partner->contact, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($partner->email, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($partner->username, ENT_QUOTES, 'UTF-8'); ?></td>
                     <td class="edit">

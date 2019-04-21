@@ -7,47 +7,32 @@
             <h1>Products</h1>
         </div>
         <div class="row">
-            <form action="<?php echo URL . '/inventory/update/' . htmlspecialchars($this->product->id, ENT_QUOTES, 'UTF-8'); ?>" method="post" class="form clearfix newform" enctype="multipart/form-data">
+            <form action="<?php echo URL . '/partners/update/' . htmlspecialchars($this->partner->id, ENT_QUOTES, 'UTF-8'); ?>" method="post" class="form clearfix newform" enctype="multipart/form-data">
+                <br>
                 <span class="in_form">
-                    <label for="product_name">Product Name</label>
-                    <input type="text" name="product_name" id="product_name" placeholder="Product name" required value="<?= $this->product->product_name ?>">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" placeholder="Name" required value="<?= $this->partner->name ?>">
                 </span>
-
+                <br>
                 <span class="in_form">
-                    <label for="description">Description</label>
-                    <input type="text" name="description" id="description" placeholder="Product Description" required value="<?= $this->product->description ?>">
+                    <label for="url">Address</label>
+                    <textarea rows="4" cols="50" name="address" placeholder="Address"><?= $this->partner->address ?></textarea>
                 </span>
-
+               <br>
                 <span class="in_form">
-                    <label for="cost">Cost</label>
-                    <input type="text" name="cost" id="cost" placeholder="Cost" required value="<?= $this->product->cost ?>">
+                    <label for="contact">Contact</label>
+                    <input type="text" name="contact" id="contact-no" placeholder="Contact" value="<?= $this->partner->contact ?>">
                 </span>
-
+                <br>
                 <span class="in_form">
-                    <label for="category">Category: </label>
-                    <select id="category" name="category">
-                        <option value="" selected>Choose Category</option>
-                        <?php //foreach ($this->categories as $category) : ?>
-                        <?php foreach ($this->categories as $category) : ?>
-                        <option value="<?= $category->id ?>" <?= $this->product->category_id == $category->id ? 'selected' : '' ?>><?php echo htmlspecialchars($category->category_name, ENT_QUOTES, 'UTF-8'); ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email" value="<?= $this->partner->email ?>">
                 </span>
-
-                <span class="in_form">
-                    <label for="">Product Status: </label>
-                    <div class="radio-group">
-                        <label for="status-active">Active</label>
-                        <input type="radio" id="status-active" name="is_public" value="1" <?= $this->product->is_public == 1 ? 'checked' : '' ?>>
-                        <label for="status-inactive">In-active</label>
-                        <input type="radio" name="is_public" id="status-inactive" value="0" <?= $this->product->is_public == 1 ? '' : 'checked' ?>>
-                    </div>
-                </span>
-
+                <br>
                 <input type="file" name="image" />
 
                 <span class="form__btn--group">
-                    <input type="submit" value="Update Product" class="btn btn-orange" name="submit_update_product">
+                    <input type="submit" value="Update Partner" class="btn btn-orange" name="submit_update_partner">
                 </span>
             </form>
         </div>

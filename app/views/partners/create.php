@@ -33,7 +33,7 @@
                 <input type="file" name="image" />
 
                 <span class="form__btn--group">
-                    <input type="submit" value="Add Promotion" class="btn btn-orange" name="submit_add_partner">
+                    <input type="submit" value="Add Partner" class="btn btn-orange" name="submit_add_partner">
                 </span>
 
             </form>
