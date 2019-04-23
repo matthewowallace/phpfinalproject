@@ -129,7 +129,7 @@
                 <?php foreach ($groups as $order) :
                     $subtotal = (float)$order->cost * (int)$order->quantity; ?>
                 
-                    <li><img class="prod-img" src="<?= $order->prod_image_path ?>" alt=""><?php echo $order->product_name . ' x' . $order->quantity . ' $' . $subtotal; ?></li>
+                    <li><img class="" src="<?= $order->prod_image_path ?>" alt=""><?php echo $order->product_name . ' x' . $order->quantity . ' $' . $subtotal; ?></li>
             
                 <?php endforeach; ?>   
              </ul>         
@@ -142,7 +142,7 @@
     </div>
 </div>
 
-
+<?php if (!$this->user->is_contributer) : ?>
 
 <div class="f4">
     <div class="sub-text">
@@ -152,11 +152,12 @@
         <p> Here you manage Your Subscription
         </p>
     </div>
-    <a><button id="subBtn" type="button" class="btn btn-orange">Add/Manage</button></a>
-    <?php if (!$this->user->is_contributer) : ?>
+    <!-- <a><button id="subBtn" type="button" class="btn btn-orange">Add/Manage</button></a> -->
+    
     <a href="<?= URL ?>/user/upgrade" id="subBtn" type="button" class="btn btn-orange">Upgrade to Contributer</a>
-    <?php endif; ?>
+    
 </div>
+<?php endif; ?>
 </div>
 </div>
 </div>

@@ -24,7 +24,7 @@
                                         Category: <?php echo htmlspecialchars($product->category, ENT_QUOTES, 'UTF-8'); ?><br>
                                         Provided by <a href="<?= URL . '/shop/seller/' . $product->seller_id ?>"><?php echo htmlspecialchars($product->username, ENT_QUOTES, 'UTF-8'); ?></a> <br>
                                     </span><br>
-                            Price: $<span ref="iphoneX" class="uk-text-lead itemPrice"> <?php echo htmlspecialchars($product->cost, ENT_QUOTES, 'UTF-8'); ?></span> USD <br><br>
+                            Price: $<span ref="iphoneX" class="uk-text-lead itemPrice"> <?php echo htmlspecialchars($product->cost, ENT_QUOTES, 'UTF-8'); ?></span> JMD <br><br>
                             <span class="uk-padding uk-text-center">
                                             <form  method="POST" action="<?php echo URL . '/cart/add/' . htmlspecialchars($product->id, ENT_QUOTES, 'UTF-8'); ?>" style="display: inline-block;">
                                                 <input type="hidden" name="cost" value="<?php echo htmlspecialchars($product->cost, ENT_QUOTES, 'UTF-8'); ?>">
